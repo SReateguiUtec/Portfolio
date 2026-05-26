@@ -7,6 +7,7 @@ import ContactSection from '../components/ui/contact-section';
 import MorphPanel from '../components/ui/ai-input';
 
 export default function Home() {
+
     return (
         <div className="bg-black min-h-screen">
             <HeroAscii />
@@ -21,9 +22,7 @@ export default function Home() {
             <ContactSection />
 
             {/* Floating AI Input */}
-            <div className="fixed bottom-4 right-4 z-50 pointer-events-none">
-                <MorphPanel />
-            </div>
+            <MorphPanel />
         </div>
     );
 }

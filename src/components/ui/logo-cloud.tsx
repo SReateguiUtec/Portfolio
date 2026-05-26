@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Cpu } from 'lucide-react';
 import { FlowingLogos } from './flowing-logos';
 import { cn } from '../../lib/utils';
+import { useLanguage } from '../../context/LanguageContext';
+import { translations } from '../../data/translations';
 
 interface Logo {
     name: string;
@@ -54,23 +56,24 @@ const workflowLogos: Logo[] = [
 ];
 
 export default function LogoCloudMarquee({
-    title = 'Skills',
-    description = 'Languages, frameworks, and infrastructure I use to build scalable applications.',
     data = defaultLogos,
     className,
 }: LogoCloudMarqueeProps) {
+    const { language } = useLanguage();
+    const t = translations[language];
+
     return (
-        <section className={cn('relative w-full overflow-hidden py-24', className)}>
+        <section className={cn('relative w-full overflow-hidden py-24 bg-black', className)}>
             <div className='container mx-auto px-6 lg:px-8 relative z-10'>
                 {/* Section Header */}
                 <div className="mb-16">
                     <div className="flex items-center gap-4 mb-4">
                         <Cpu className="text-blue-400 w-8 h-8" />
-                        <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight uppercase">{title}</h2>
+                        <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight uppercase">{t.logoCloud.title}</h2>
                     </div>
                     <div className="flex items-center gap-2 opacity-60">
                         <div className="w-12 h-px bg-white"></div>
-                        <span className="text-white text-[10px] font-mono tracking-widest">TECHSTACK_&_TOOLS</span>
+                        <span className="text-white text-[10px] font-mono tracking-widest">{t.logoCloud.badge}</span>
                         <div className="flex-1 h-px bg-white"></div>
                     </div>
                     <motion.p
@@ -80,7 +83,7 @@ export default function LogoCloudMarquee({
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className='mt-6 max-w-2xl text-white/60 text-sm md:text-base leading-relaxed'
                     >
-                        {description}
+                        {t.logoCloud.description}
                     </motion.p>
                 </div>
 
@@ -105,6 +108,12 @@ export default function LogoCloudMarquee({
                         />
                     </div>
                 </motion.div>
+            </div>
+
+            {/* Exactly as requested in the reference code */}
+            <div className="relative -mt-16 h-96 w-full overflow-hidden mask-[radial-gradient(50%_50%,white,transparent)]">
+                <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,rgba(59,130,246,1),transparent_70%)] before:opacity-40" />
+                <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-white/20 bg-zinc-900" />
             </div>
         </section>
     );

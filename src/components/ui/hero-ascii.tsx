@@ -1,10 +1,15 @@
 'use client';
 import { LOGO } from './ascii';
 import { Download } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
+import { translations } from '../../data/translations';
 
 export default function HeroAscii() {
+    const { language, setLanguage } = useLanguage();
+    const t = translations[language];
+
     return (
-        <main className="relative min-h-[90vh] overflow-hidden bg-black pb-12">
+        <main className="relative min-h-[70vh] lg:min-h-[90vh] overflow-hidden bg-black pb-12">
             {/* Hero video background */}
             <div className="absolute inset-0 w-full h-full z-0 opacity-60 flex items-center justify-center p-4 md:p-8 lg:p-16">
                 <video
@@ -12,9 +17,9 @@ export default function HeroAscii() {
                     muted
                     loop
                     playsInline
-                    className="w-full h-full object-contain object-center scale-115"
+                    className="w-full h-full object-cover lg:object-contain object-center scale-115"
                 >
-                    <source src="src/assets/herodevfinal.mp4" type="video/mp4" />
+                    <source src="src/assets/herodevintro.mp4" type="video/mp4" />
                 </video>
             </div>
 
@@ -29,19 +34,26 @@ export default function HeroAscii() {
                             S.REATEGUI
                         </div>
                         <div className="h-3 lg:h-4 w-px bg-white/40"></div>
-                        <span className="text-white/60 text-[8px] lg:text-[10px] font-mono tracking-widest">PORTFOLIO</span>
+                        <span className="text-white/60 text-[8px] lg:text-[10px] font-mono tracking-widest">{t.hero.portfolio}</span>
                     </div>
 
                     <nav className="hidden lg:flex items-center gap-8 text-[11px] tracking-wider font-mono text-white/70">
-                        <a href="#projects" className="hover:text-blue-400 transition-colors duration-200">PROJECTS</a>
+                        <a href="#projects" className="hover:text-blue-400 transition-colors duration-200">{t.nav.projects}</a>
                         <div className="w-1 h-1 bg-white/20 rounded-full"></div>
-                        <a href="#education" className="hover:text-blue-400 transition-colors duration-200">EDUCATION</a>
+                        <a href="#education" className="hover:text-blue-400 transition-colors duration-200">{t.nav.education}</a>
                         <div className="w-1 h-1 bg-white/20 rounded-full"></div>
-                        <a href="#Skills" className="hover:text-blue-400 transition-colors duration-200">SKILLS</a>
+                        <a href="#Skills" className="hover:text-blue-400 transition-colors duration-200">{t.nav.skills}</a>
                         <div className="w-1 h-1 bg-white/20 rounded-full"></div>
-                        <a href="#contact" className="hover:text-blue-400 transition-colors duration-200">CONTACT</a>
+                        <a href="#contact" className="hover:text-blue-400 transition-colors duration-200">{t.nav.contact}</a>
                         <div className="w-1 h-1 bg-white/20 rounded-full"></div>
-                        <a href="#copilot" className="hover:text-blue-400 transition-colors duration-200">COPILOT</a>
+                        <button
+                            onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
+                            className="hover:text-blue-400 transition-colors duration-200 focus:outline-none"
+                        >
+                            <span className={language === 'en' ? 'text-white font-bold' : 'text-white/50'}>EN</span>
+                            <span className="text-white/30 mx-1">/</span>
+                            <span className={language === 'es' ? 'text-white font-bold' : 'text-white/50'}>ES</span>
+                        </button>
                     </nav>
                 </div>
             </div>
@@ -52,7 +64,7 @@ export default function HeroAscii() {
             <div className="absolute left-0 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-l-2 border-white/30 z-20" style={{ bottom: '2vh' }}></div>
             <div className="absolute right-0 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-r-2 border-white/30 z-20" style={{ bottom: '2vh' }}></div>
 
-            <div className="relative z-10 flex min-h-[90vh] items-center pt-16 lg:pt-0" style={{ marginTop: '2vh' }}>
+            <div className="relative z-10 flex min-h-[70vh] lg:min-h-[90vh] items-center pt-16 lg:pt-0" style={{ marginTop: '2vh' }}>
                 <div className="container mx-auto px-6 lg:px-8 lg:ml-[2%] xl:ml-[5%]">
                     <div className="max-w-lg relative">
                         {/* Top decorative line */}
@@ -79,9 +91,9 @@ export default function HeroAscii() {
 
                         {/* Description with subtle grid pattern */}
                         <div className="relative">
-                            <p className="text-xs lg:text-base text-gray-300 mb-5 lg:mb-6 leading-relaxed font-mono opacity-90 max-w-md">
-                                <span className="text-white font-bold block mb-2">CS Student @ UTEC.</span>
-                                Passionate about AI & ML Engineering, Systems Optimization, Cloud-Native Infrastructure and Fintech.
+                            <p className="text-xs lg:text-base text-gray-200 mb-5 lg:mb-6 leading-relaxed font-mono opacity-100 max-w-md [text-shadow:_0_2px_4px_rgb(0_0_0_/_100%),_0_0_10px_rgb(0_0_0_/_100%)] lg:[text-shadow:_none]">
+                                <span className="text-white font-bold block mb-2">{t.hero.role}</span>
+                                {t.hero.description}
                             </p>
 
                             {/* Technical corner accent - desktop only */}
@@ -92,11 +104,11 @@ export default function HeroAscii() {
 
                         {/* Buttons with technical accents */}
                         <div className="flex flex-col lg:flex-row gap-3 lg:gap-4">
-                            <a href="/CV-EN.pdf" download="Sebastian_Reategui_CV.pdf" className="relative flex items-center justify-center gap-2 px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent text-white font-mono text-xs lg:text-sm border border-white hover:bg-white hover:text-black transition-all duration-200 group">
+                            <a href={language === 'es' ? new URL('../../assets/CV-ES.pdf', import.meta.url).href : new URL('../../assets/CV-EN.pdf', import.meta.url).href} download="SebastianReateguiCV.pdf" className="relative flex items-center justify-center gap-2 px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent text-white font-mono text-xs lg:text-sm border border-white hover:bg-white hover:text-black transition-all duration-200 group">
                                 <span className="hidden lg:block absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                 <span className="hidden lg:block absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                 <Download className="w-4 h-4" />
-                                Descargar CV
+                                {t.hero.downloadResume}
                             </a>
 
                             <a href="https://github.com/SReateguiUtec" target="_blank" rel="noopener noreferrer" className="relative flex items-center justify-center gap-2 px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent border border-white text-white font-mono text-xs lg:text-sm hover:bg-white hover:text-black transition-all duration-200">

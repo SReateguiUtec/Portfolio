@@ -1,14 +1,17 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from "react"
-import { cx } from "class-variance-authority"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
-import { Loader2, Send } from "lucide-react"
+import { Avatar, AvatarFallback } from "./avatar"
+import { Badge } from "./badge"
+import { Button as UiButton } from "./button"
+import { Bot, CheckCheck, Loader2, Send, Command } from "lucide-react"
 import { GoogleGenerativeAI } from "@google/generative-ai"
 
-import { Button } from "./button-ai"
 import { cn } from "../../lib/utils"
 import { FULL_STACK_BIO, SKILLS_CONTENT, PROJECTS_DATA, CONTACT_INFO } from '../../data/content';
+import { useLanguage } from '../../context/LanguageContext';
+import { translations } from '../../data/translations';
 
 type Message = {
     id: string;
@@ -27,176 +30,6 @@ const initialMessages: Message[] = [
         timestamp: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
     },
 ];
-
-interface OrbProps {
-    dimension?: string
-    className?: string
-    tones?: {
-        base?: string
-        accent1?: string
-        accent2?: string
-        accent3?: string
-    }
-    spinDuration?: number
-}
-
-const ColorOrb: React.FC<OrbProps> = ({
-    dimension = "192px",
-    className,
-    tones,
-    spinDuration = 20,
-}) => {
-    const fallbackTones = {
-        base: "oklch(95% 0.02 264.695)",
-        accent1: "oklch(75% 0.15 350)",
-        accent2: "oklch(80% 0.12 200)",
-        accent3: "oklch(78% 0.14 280)",
-    }
-
-    const palette = { ...fallbackTones, ...tones }
-
-    const dimValue = parseInt(dimension.replace("px", ""), 10)
-
-    const blurStrength =
-        dimValue < 50 ? Math.max(dimValue * 0.008, 1) : Math.max(dimValue * 0.015, 4)
-
-    const contrastStrength =
-        dimValue < 50 ? Math.max(dimValue * 0.004, 1.2) : Math.max(dimValue * 0.008, 1.5)
-
-    const pixelDot = dimValue < 50 ? Math.max(dimValue * 0.004, 0.05) : Math.max(dimValue * 0.008, 0.1)
-
-    const shadowRange = dimValue < 50 ? Math.max(dimValue * 0.004, 0.5) : Math.max(dimValue * 0.008, 2)
-
-    const maskRadius =
-        dimValue < 30 ? "0%" : dimValue < 50 ? "5%" : dimValue < 100 ? "15%" : "25%"
-
-    const adjustedContrast =
-        dimValue < 30 ? 1.1 : dimValue < 50 ? Math.max(contrastStrength * 1.2, 1.3) : contrastStrength
-
-    return (
-        <div
-            className={cn("color-orb", className)}
-            style={{
-                width: dimension,
-                height: dimension,
-                "--base": palette.base,
-                "--accent1": palette.accent1,
-                "--accent2": palette.accent2,
-                "--accent3": palette.accent3,
-                "--spin-duration": `${spinDuration}s`,
-                "--blur": `${blurStrength}px`,
-                "--contrast": adjustedContrast,
-                "--dot": `${pixelDot}px`,
-                "--shadow": `${shadowRange}px`,
-                "--mask": maskRadius,
-            } as React.CSSProperties}
-        >
-            <style>{`
-        @property --angle {
-          syntax: "<angle>";
-          inherits: false;
-          initial-value: 0deg;
-        }
-
-        .color-orb {
-          display: grid;
-          grid-template-areas: "stack";
-          overflow: hidden;
-          border-radius: 50%;
-          position: relative;
-          transform: scale(1.1);
-        }
-
-        .color-orb::before,
-        .color-orb::after {
-          content: "";
-          display: block;
-          grid-area: stack;
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          transform: translateZ(0);
-        }
-
-        .color-orb::before {
-          background:
-            conic-gradient(
-              from calc(var(--angle) * 2) at 25% 70%,
-              var(--accent3),
-              transparent 20% 80%,
-              var(--accent3)
-            ),
-            conic-gradient(
-              from calc(var(--angle) * 2) at 45% 75%,
-              var(--accent2),
-              transparent 30% 60%,
-              var(--accent2)
-            ),
-            conic-gradient(
-              from calc(var(--angle) * -3) at 80% 20%,
-              var(--accent1),
-              transparent 40% 60%,
-              var(--accent1)
-            ),
-            conic-gradient(
-              from calc(var(--angle) * 2) at 15% 5%,
-              var(--accent2),
-              transparent 10% 90%,
-              var(--accent2)
-            ),
-            conic-gradient(
-              from calc(var(--angle) * 1) at 20% 80%,
-              var(--accent1),
-              transparent 10% 90%,
-              var(--accent1)
-            ),
-            conic-gradient(
-              from calc(var(--angle) * -2) at 85% 10%,
-              var(--accent3),
-              transparent 20% 80%,
-              var(--accent3)
-            );
-          box-shadow: inset var(--base) 0 0 var(--shadow) calc(var(--shadow) * 0.2);
-          filter: blur(var(--blur)) contrast(var(--contrast));
-          animation: spin var(--spin-duration) linear infinite;
-        }
-
-        .color-orb::after {
-          background-image: radial-gradient(
-            circle at center,
-            var(--base) var(--dot),
-            transparent var(--dot)
-          );
-          background-size: calc(var(--dot) * 2) calc(var(--dot) * 2);
-          backdrop-filter: blur(calc(var(--blur) * 2)) contrast(calc(var(--contrast) * 2));
-          mix-blend-mode: overlay;
-        }
-
-        .color-orb[style*="--mask: 0%"]::after {
-          mask-image: none;
-        }
-
-        .color-orb:not([style*="--mask: 0%"])::after {
-          mask-image: radial-gradient(black var(--mask), transparent 75%);
-        }
-
-        @keyframes spin {
-          to {
-            --angle: 360deg;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .color-orb::before {
-            animation: none;
-          }
-        }
-      `}</style>
-        </div>
-    )
-}
-
-const SPEED_FACTOR = 1
 
 interface ContextShape {
     showForm: boolean
@@ -237,79 +70,96 @@ export function MorphPanel() {
         return () => document.removeEventListener("mousedown", clickOutsideHandler)
     }, [showForm, triggerClose])
 
+    // Atajo de teclado global (cmd+k o ctrl+k) para abrir/cerrar el panel
+    React.useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault()
+                if (showForm) {
+                    triggerClose()
+                } else {
+                    triggerOpen()
+                }
+            }
+        }
+        document.addEventListener("keydown", handleKeyDown)
+        return () => document.removeEventListener("keydown", handleKeyDown)
+    }, [showForm, triggerOpen, triggerClose])
+
     const ctx = React.useMemo(
         () => ({ showForm, triggerOpen, triggerClose }),
         [showForm, triggerOpen, triggerClose]
     )
 
     return (
-        <div className="flex items-end justify-end pointer-events-none" style={{ width: FORM_WIDTH, height: FORM_HEIGHT }}>
-            <motion.div
-                ref={wrapperRef}
-                data-panel
-                className={cx(
-                    "bg-background/80 backdrop-blur-xl border-white/10 z-3 flex flex-col items-center overflow-hidden border shadow-2xl pointer-events-auto"
+        <FormContext.Provider value={ctx}>
+            {/* Barra tipo Comando Flotante */}
+            <div className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none">
+                <AnimatePresence>
+                    {!showForm && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 20 }}
+                            className="pointer-events-auto bg-[#0c0c0e]/80 backdrop-blur-xl border border-white/10 shadow-2xl rounded-full overflow-hidden"
+                        >
+                            <DockBar />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+
+            {/* Panel Lateral (Sidebar) */}
+            <AnimatePresence>
+                {showForm && (
+                    <>
+                        <motion.div
+                            key="overlay"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-99 pointer-events-auto"
+                            onClick={triggerClose}
+                        />
+                        <motion.div
+                            key="sidebar"
+                            ref={wrapperRef}
+                            initial={{ x: "100%" }}
+                            animate={{ x: 0 }}
+                            exit={{ x: "100%" }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                            className="fixed top-0 right-0 h-dvh w-[450px] max-w-[100vw] bg-[#0c0c0e] border-l border-white/10 shadow-2xl z-100 pointer-events-auto flex flex-col"
+                        >
+                            <InputForm ref={textareaRef} />
+                        </motion.div>
+                    </>
                 )}
-                initial={false}
-                animate={{
-                    width: showForm ? FORM_WIDTH : "auto",
-                    height: showForm ? FORM_HEIGHT : 44,
-                    borderRadius: showForm ? 14 : 20,
-                }}
-                transition={{
-                    type: "spring",
-                    stiffness: 550 / SPEED_FACTOR,
-                    damping: 45,
-                    mass: 0.7,
-                    delay: showForm ? 0 : 0.08,
-                }}
-            >
-                <FormContext.Provider value={ctx}>
-                    <DockBar />
-                    <InputForm ref={textareaRef} />
-                </FormContext.Provider>
-            </motion.div>
-        </div>
+            </AnimatePresence>
+        </FormContext.Provider>
     )
 }
 
 function DockBar() {
-    const { showForm, triggerOpen } = useFormContext()
-    return (
-        <footer className="mt-auto flex h-[44px] items-center justify-center whitespace-nowrap select-none">
-            <div className="flex items-center justify-center gap-2 px-3 max-sm:h-10 max-sm:px-2">
-                <div className="flex w-fit items-center gap-2">
-                    <AnimatePresence mode="wait">
-                        {showForm ? (
-                            <motion.div
-                                key="blank"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 0 }}
-                                exit={{ opacity: 0 }}
-                                className="h-5 w-5"
-                            />
-                        ) : (
-                            <motion.div
-                                key="orb"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                <ColorOrb dimension="24px" tones={{ base: "oklch(22.64% 0 0)" }} />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </div>
+    const { triggerOpen } = useFormContext()
+    const { language } = useLanguage();
+    const t = translations[language];
 
-                <Button
-                    type="button"
-                    className="flex h-fit flex-1 justify-end rounded-full px-2 !py-0.5"
-                    variant="ghost"
-                    onClick={triggerOpen}
-                >
-                    <span className="truncate font-semibold tracking-wide text-white">Copilot</span>
-                </Button>
+    return (
+        <footer 
+            onClick={triggerOpen}
+            className="flex h-[48px] items-center px-4 gap-3 cursor-pointer select-none whitespace-nowrap transition-all hover:bg-white/5 w-[300px] max-w-[90vw]"
+        >
+            <div className="flex items-center justify-center p-1.5 bg-blue-500/20 text-blue-400 rounded-full shrink-0">
+                <Bot className="w-4 h-4" />
+            </div>
+            
+            <span className="text-[14px] text-white/50 flex-1 truncate text-left font-medium">
+                {t.copilot.placeholder}
+            </span>
+
+            <div className="hidden sm:flex items-center gap-1 shrink-0 bg-white/10 px-2 py-1 rounded-md text-xs text-white/40 font-mono">
+                <Command className="w-3 h-3" />
+                <span>K</span>
             </div>
         </footer>
     )
@@ -377,8 +227,11 @@ const LOCAL_QA = [
   }
 ];
 
-const FORM_WIDTH = 420
-const FORM_HEIGHT = 600
+const quickReplies = [
+    "What are your core skills?",
+    "Tell me about your experience.",
+    "How can I contact you?",
+];
 
 function InputForm({ ref }: { ref: React.Ref<HTMLTextAreaElement> }) {
     const { triggerClose, showForm } = useFormContext()
@@ -525,103 +378,151 @@ Question: "${messageText.trim()}"
     return (
         <form
             onSubmit={handleSubmit}
-            className="absolute bottom-0"
-            style={{ width: FORM_WIDTH, height: FORM_HEIGHT, pointerEvents: showForm ? "all" : "none" }}
+            className="flex h-full flex-col overflow-hidden relative"
         >
-            <AnimatePresence>
-                {showForm && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ type: "spring", stiffness: 550 / SPEED_FACTOR, damping: 45, mass: 0.7 }}
-                        className="flex h-full flex-col bg-[#0c0c0e] rounded-[14px] border border-white/10 overflow-hidden"
-                    >
-                        <div className="flex justify-between py-2 px-3 border-b border-white/10 shrink-0">
-                            <p className="text-white z-2 ml-[32px] flex items-center gap-[6px] select-none font-semibold text-sm">
+            {/* Sidebar Header from ai-messenger */}
+            <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 p-4 border-b border-border/10 shrink-0">
+                <div className="flex items-center gap-3">
+                    <div className="relative">
+                        <Avatar className="h-10 w-10 sm:h-12 sm:w-12 rounded-2xl sm:rounded-3xl border border-border/40 bg-card/80 flex items-center justify-center">
+                            <AvatarFallback className="bg-primary/20 text-primary rounded-2xl sm:rounded-3xl flex items-center justify-center h-full w-full">
+                                <Bot className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </AvatarFallback>
+                        </Avatar>
+                        <span
+                            className="absolute bottom-0 right-0 inline-flex h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full border-2 border-background bg-green-500"
+                            aria-label="Online"
+                        />
+                    </div>
+                    <div>
+                        <div className="flex items-center gap-2">
+                            <p className="text-sm sm:text-base font-semibold text-white">
                                 Copilot
                             </p>
-                            <button
-                                type="button"
-                                onClick={triggerClose}
-                                className="text-white/50 hover:text-white transition-colors cursor-pointer text-sm font-semibold px-2"
+                            <Badge
+                                variant="outline"
+                                className="rounded-full border border-border/50 bg-primary/15 px-2 py-0 text-[0.6rem] uppercase tracking-widest text-primary"
                             >
-                                ✕
-                            </button>
+                                AI
+                            </Badge>
                         </div>
+                        <p className="text-xs text-white/50">
+                            Ask me anything about Sebastián
+                        </p>
+                    </div>
+                </div>
+                <button
+                    type="button"
+                    onClick={triggerClose}
+                    className="text-white/50 hover:text-white transition-colors cursor-pointer text-xl font-semibold px-2"
+                >
+                    ✕
+                </button>
+            </div>
 
-                        {/* Chat History */}
-                        <div
-                            ref={messagesContainerRef}
-                            className="flex-1 overflow-y-auto p-3 space-y-3 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20"
+            {/* Chat History */}
+            <div
+                ref={messagesContainerRef}
+                className="flex-1 overflow-y-auto p-4 space-y-4 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20"
+            >
+                <AnimatePresence initial={false}>
+                    {messages.map((message) => (
+                        <motion.div
+                            key={message.id}
+                            initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 0 }}
+                            transition={{ duration: 0.28, ease: "easeOut" }}
+                            className="flex flex-col gap-1"
                         >
-                            {messages.map((message) => (
-                                <div key={message.id} className={cn(
-                                    "flex flex-col gap-1 max-w-[85%]",
-                                    message.sender === "user" ? "ml-auto items-end" : "mr-auto items-start"
+                            <div
+                                className={cn(
+                                    "relative max-w-[85%] sm:max-w-[85%] rounded-2xl border border-border/40 bg-white/5 px-4 py-3 text-sm leading-relaxed text-white backdrop-blur",
+                                    message.sender === "user" && "ml-auto border-primary/40 bg-primary text-white"
+                                )}
+                            >
+                                <p className="font-medium text-white/80 text-xs mb-1">
+                                    {message.author}
+                                </p>
+                                <p className={cn(
+                                    "text-[0.95rem]",
+                                    message.sender === "user" ? "text-white" : "text-white/90"
                                 )}>
-                                    <div className={cn(
-                                        "px-3 py-2 rounded-2xl text-sm leading-relaxed",
-                                        message.sender === "user"
-                                            ? "bg-white/10 text-white rounded-br-sm"
-                                            : "bg-transparent border border-white/10 text-white/90 rounded-bl-sm"
+                                    {message.text}
+                                </p>
+                                <div className="mt-2 flex items-center justify-end gap-2 text-[0.65rem]">
+                                    <span className={cn(
+                                        "text-white/50",
+                                        message.sender === "user" && "text-white/80"
                                     )}>
-                                        <p>{message.text}</p>
-                                    </div>
-                                    <span className="text-[10px] text-white/40 px-1">{message.timestamp}</span>
+                                        {message.timestamp}
+                                    </span>
+                                    {message.sender === "user" && (
+                                        <CheckCheck className="h-3.5 w-3.5 text-white/80" />
+                                    )}
                                 </div>
-                            ))}
-
-                            {isLoading && (
-                                <div className="flex flex-col gap-1 max-w-[85%] mr-auto items-start">
-                                    <div className="px-3 py-3 rounded-2xl bg-transparent border border-white/10 rounded-bl-sm flex items-center gap-2">
-                                        <Loader2 className="w-3.5 h-3.5 animate-spin text-white/60" />
-                                        <span className="text-[11px] text-white/60 animate-pulse">Thinking...</span>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Input Area */}
-                        <div className="shrink-0 p-3 pt-1">
-                            <div className="relative flex items-end">
-                                <textarea
-                                    ref={ref}
-                                    placeholder="Message Copilot..."
-                                    name="message"
-                                    className="w-full min-h-[46px] max-h-[120px] resize-none rounded-[20px] bg-[#2A2A2A] pl-4 pr-12 py-3 text-[15px] text-white placeholder:text-white/40 outline-none"
-                                    required
-                                    onKeyDown={handleKeys}
-                                    spellCheck={false}
-                                    rows={1}
-                                />
-                                <button
-                                    type="submit"
-                                    ref={btnRef}
-                                    className="absolute right-2 bottom-2 p-[6px] rounded-[10px] bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer flex items-center justify-center"
-                                    disabled={isLoading}
-                                >
-                                    <Send className="w-4 h-4 ml-[2px]" />
-                                </button>
                             </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                        </motion.div>
+                    ))}
 
-            <AnimatePresence>
-                {showForm && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-2.5 left-3 z-10"
-                    >
-                        <ColorOrb dimension="20px" tones={{ base: "oklch(22.64% 0 0)" }} />
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                    {isLoading && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="flex flex-col gap-1"
+                        >
+                            <div className="relative max-w-[85%] rounded-2xl border border-border/40 bg-white/5 px-4 py-4 text-sm leading-relaxed text-white backdrop-blur flex items-center gap-3">
+                                <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                                <span className="text-white/50 text-xs animate-pulse">Thinking...</span>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+
+            {/* Input Area */}
+            <div className="shrink-0 p-4 border-t border-border/10 bg-background/50">
+                <div className="flex flex-wrap gap-2 mb-3">
+                    {quickReplies.map((reply) => (
+                        <button
+                            key={reply}
+                            type="button"
+                            onClick={() => {
+                                if (ref && typeof ref !== 'function' && ref.current) {
+                                    ref.current.value = reply;
+                                    ref.current.form?.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+                                }
+                            }}
+                            disabled={isLoading}
+                            className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs text-white/70 transition hover:border-white/40 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {reply}
+                        </button>
+                    ))}
+                </div>
+                <div className="flex items-end gap-3 rounded-3xl border border-white/20 bg-white/5 p-3 backdrop-blur">
+                    <div className="flex-1 min-w-0">
+                        <textarea
+                            ref={ref}
+                            onKeyDown={handleKeys}
+                            placeholder="Ask me something..."
+                            rows={1}
+                            className="w-full min-h-[40px] max-h-[120px] resize-none border-none bg-transparent text-[15px] text-white placeholder:text-white/40 focus-visible:ring-0 focus-visible:outline-none p-2"
+                            disabled={isLoading}
+                        />
+                    </div>
+                    <div className="flex shrink-0 items-end pb-1 pr-1">
+                        <UiButton
+                            type="submit"
+                            size="icon"
+                            className="size-10 rounded-full bg-blue-600 text-white shadow-lg transition hover:bg-blue-500 focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-60"
+                            disabled={isLoading}
+                        >
+                            <Send className="h-4 w-4" />
+                        </UiButton>
+                    </div>
+                </div>
+            </div>
         </form>
     )
 }

@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --background: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.129 0.042 264.695);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.546 0.245 262.881);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.708 0.042 258.892);
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.279 0.041 260.031);
+  --input: oklch(0.279 0.041 260.031);
+  --ring: oklch(0.546 0.245 262.881);
+  --radius: 0.5rem;
+}
+
+@layer utilities {
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+  .animate-scanline {
+    animation: scanline 2s linear infinite;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - var(--gap, 4rem))); }
+  }
+
+  @keyframes marquee-reverse {
+    from { transform: translateX(calc(-100% - var(--gap, 4rem))); }
+    to { transform: translateX(0); }
+  }
+
+  @keyframes highlight {
+    0%, 100% { background-color: var(--highlight); opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+  .animate-highlight {
+    animation: highlight 3s ease-in-out infinite;
+    background-color: var(--highlight);
+  }
+
+  @keyframes flash {
+    0%, 100% { opacity: 0; background-color: var(--highlight); }
+    5%, 15% { opacity: 0.3; }
+    10% { opacity: 0.6; }
+  }
+  .animate-flash {
+    animation: flash 8s ease-in-out infinite;
+  }
+}

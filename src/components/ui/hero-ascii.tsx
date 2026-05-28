@@ -19,7 +19,7 @@ export default function HeroAscii() {
                     playsInline
                     className="w-full h-full object-cover lg:object-contain object-center scale-115"
                 >
-                    <source src="src/assets/herodevintro.mp4" type="video/mp4" />
+                    <source src="src/assets/herov2.mp4" type="video/mp4" />
                 </video>
             </div>
 

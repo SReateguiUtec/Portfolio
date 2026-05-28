@@ -163,3 +163,18 @@ export const CONTACT_INFO = {
 };
 
 export const RESUME_URL = 'https://github.com/SReateguiUtec';
+
+export const PERSONAL_EXTRA = {
+  en: `
+- **Age**: 26 years old.
+- **Academic Cycle**: Currently in his 3rd year / 5th semester of Computer Science at UTEC (Peru).
+- **Hobbies**: Coding Terminal User Interfaces (TUI) in Go, customizing his terminal setup, watching NBA, and anime (recently he became a fan of Blue Lock!).
+- **Goals**: Specialize in Artificial Intelligence (AI) and Machine Learning Engineering, design high-performance distributed systems, and join a global tech company.
+  `.trim(),
+  es: `
+- **Edad**: 26 años.
+- **Ciclo Académico**: Actualmente cursando el 3er año / 5to ciclo de Ciencia de la Computación en UTEC (Perú).
+- **Hobbies**: Programar interfaces de usuario para la terminal (TUI) en Go, personalizar su entorno de desarrollo, ver NBA y anime (recientemente es fan de Blue Lock!).
+- **Metas**: Especializarse en Inteligencia Artificial (IA) e Ingeniería de Aprendizaje Automático (ML), diseñar sistemas distribuidos de alto rendimiento y trabajar en una empresa tecnológica global.
+  `.trim()
+};

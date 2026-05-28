@@ -46,38 +46,109 @@
 }
 
 @layer utilities {
-  @keyframes scanline {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
+  @keyframes glow-pulse {
+    0%, 100% { filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.4)); }
+    50% { filter: drop-shadow(0 0 25px rgba(59, 130, 246, 1)); }
   }
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glitch-1 {
+    0% { opacity: 1; transform: translate(0); clip-path: inset(0 0 0 0); }
+    10% { transform: translate(-4px, 2px); clip-path: inset(10% 0 60% 0); }
+    20% { transform: translate(4px, -2px); clip-path: inset(30% 0 20% 0); }
+    30% { transform: translate(-2px, 4px); clip-path: inset(80% 0 5% 0); }
+    40% { transform: translate(0); clip-path: inset(0 0 0 0); opacity: 1; }
+    41% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  @keyframes glitch-2 {
+    0% { opacity: 1; transform: translate(0); clip-path: inset(0 0 0 0); }
+    10% { transform: translate(4px, -2px); clip-path: inset(20% 0 30% 0); }
+    20% { transform: translate(-4px, 2px); clip-path: inset(60% 0 10% 0); }
+    30% { transform: translate(2px, -4px); clip-path: inset(5% 0 80% 0); }
+    40% { transform: translate(0); clip-path: inset(0 0 0 0); opacity: 1; }
+    41% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  .animate-glitch-1 {
+    animation: glitch-1 3s infinite;
+  }
+  .animate-glitch-2 {
+    animation: glitch-2 3s infinite;
+  }
+
+  @keyframes scanline {
+    0% {
+      transform: translateY(-100%);
+    }
+
+    100% {
+      transform: translateY(100%);
+    }
+  }
+
   .animate-scanline {
     animation: scanline 2s linear infinite;
   }
 
   @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(calc(-100% - var(--gap, 4rem))); }
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(calc(-100% - var(--gap, 4rem)));
+    }
   }
 
   @keyframes marquee-reverse {
-    from { transform: translateX(calc(-100% - var(--gap, 4rem))); }
-    to { transform: translateX(0); }
+    from {
+      transform: translateX(calc(-100% - var(--gap, 4rem)));
+    }
+
+    to {
+      transform: translateX(0);
+    }
   }
 
   @keyframes highlight {
-    0%, 100% { background-color: var(--highlight); opacity: 1; }
-    50% { opacity: 0.8; }
+
+    0%,
+    100% {
+      background-color: var(--highlight);
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.8;
+    }
   }
+
   .animate-highlight {
     animation: highlight 3s ease-in-out infinite;
     background-color: var(--highlight);
   }
 
   @keyframes flash {
-    0%, 100% { opacity: 0; background-color: var(--highlight); }
-    5%, 15% { opacity: 0.3; }
-    10% { opacity: 0.6; }
+
+    0%,
+    100% {
+      opacity: 0;
+      background-color: var(--highlight);
+    }
+
+    5%,
+    15% {
+      opacity: 0.3;
+    }
+
+    10% {
+      opacity: 0.6;
+    }
   }
+
   .animate-flash {
     animation: flash 8s ease-in-out infinite;
   }

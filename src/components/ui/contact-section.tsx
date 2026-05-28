@@ -61,7 +61,7 @@ export default function ContactSection() {
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[200px] bg-blue-500/10 blur-[120px] rounded-full pointer-events-none" />
 
             {/* Footer with Pyramid and Thanks message */}
-            <div className="w-full flex flex-col-reverse md:flex-row items-center justify-center gap-0 md:gap-16 pt-16 md:pt-24 pb-8 md:pb-0 overflow-hidden relative z-10">
+            <div className="w-full flex flex-col md:flex-row items-center justify-center gap-0 md:gap-16 pt-16 md:pt-24 pb-8 md:pb-0 overflow-hidden relative z-10">
                 <div className="scale-50 md:scale-100 origin-center opacity-60 pointer-events-none -my-24 md:my-0 z-0">
                     <AsciiPyramid />
                 </div>

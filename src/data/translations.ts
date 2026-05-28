@@ -17,7 +17,7 @@ export const translations = {
       hi: "Hi there 👋, I'm Sebastian!",
       bio: "I'm a 26 year old Computer Science student living in Lima, Peru. I always enjoy learning new things and giving my best to every project.",
       bullet1: "I'm currently a <span className=\"text-[#60a5fa] font-semibold\">3rd-year CS Student</span> at UTEC",
-      bullet2: "I’m currently learning new languages and technologies like <span className=\"text-[#60a5fa] font-semibold\">Rust, Angular & NestJS</span>",
+      bullet2: "I'm currently learning new languages and technologies like <span className=\"text-[#60a5fa] font-semibold\">Rust, Angular & NestJS</span>",
       bullet3: "Fun fact: <span className=\"text-[#60a5fa] font-semibold\">I was inspired by Blue Lock's pentagon for the hero design!</span>",
       activity: "ACTIVITY",
       less: "Less",
@@ -60,7 +60,7 @@ export const translations = {
       title: "EDUCATION",
       background: "ACADEMIC_BACKGROUND",
       utec: "Universidad de Ingeniería y Tecnología (UTEC)",
-      degree: "BS in Computer Science",
+      degree: "Bachelor of Science in Computer Science",
       award: "Berners Lee Contest Finalist - CS2031 Platform-Based Development",
       inProgress: "IN_PROGRESS"
     },

@@ -9,6 +9,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Bot, CheckCheck, Loader2, Send, BrainCircuit } from "lucide-react";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { useLanguage } from "../context/LanguageContext";
+import { FULL_STACK_BIO, SKILLS_CONTENT, PROJECTS_DATA, CONTACT_INFO, PERSONAL_EXTRA } from "../data/content";
 
 type Message = {
     id: string;
@@ -18,24 +20,46 @@ type Message = {
     timestamp: string;
 };
 
-const initialMessages: Message[] = [
-    {
-        id: "init-1",
-        sender: "bot",
-        author: "Copilot",
-        text: "Hi there! I'm your Copilot trained to answer questions about Sebastian's experience, skills, and projects. How can I help you?",
-        timestamp: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
-    },
-];
-
-const quickReplies = [
-    "What are your core skills?",
-    "Tell me about your experience.",
-    "How can I contact you?",
-];
+const quickReplies = {
+    en: [
+        "What are your core skills?",
+        "Tell me about your experience.",
+        "How can I contact you?",
+    ],
+    es: [
+        "¿Cuáles son tus habilidades principales?",
+        "Cuéntame sobre tu experiencia.",
+        "¿Cómo puedo contactarte?",
+    ],
+};
 
 export function Messenger() {
-    const [messages, setMessages] = useState<Message[]>(initialMessages);
+    const { language } = useLanguage();
+    const [messages, setMessages] = useState<Message[]>([]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setMessages((prev) => {
+                const greetingText = language === "es"
+                    ? "¡Hola! Soy tu Copilot, entrenado para responder preguntas sobre la experiencia, habilidades y proyectos de Sebastián. ¿En qué puedo ayudarte?"
+                    : "Hi there! I'm your Copilot trained to answer questions about Sebastian's experience, skills, and projects. How can I help you?";
+
+                if (prev.length > 0 && prev[0].text === greetingText) {
+                    return prev;
+                }
+
+                const newGreeting = {
+                    id: "init-1",
+                    sender: "bot" as const,
+                    author: "Copilot",
+                    text: greetingText,
+                    timestamp: new Date().toLocaleTimeString(language === "es" ? "es-ES" : "en-US", { hour: "2-digit", minute: "2-digit" }),
+                };
+                return [newGreeting, ...prev.filter((m) => m.id !== "init-1")];
+            });
+        }, 0);
+        return () => clearTimeout(timer);
+    }, [language]);
     const [draft, setDraft] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const shouldReduceMotion = useReducedMotion();
@@ -73,7 +97,7 @@ export function Messenger() {
         const messageText = textOverride ?? draft;
         if (!messageText.trim() || isLoading) return;
 
-        const timestamp = new Date().toLocaleTimeString("en-US", {
+        const timestamp = new Date().toLocaleTimeString(language === "es" ? "es-ES" : "en-US", {
             hour: "2-digit",
             minute: "2-digit",
         });
@@ -90,20 +114,113 @@ export function Messenger() {
         setDraft("");
         setIsLoading(true);
 
+        const lowerText = messageText.trim().toLowerCase();
+        const isSkills = lowerText === "what are your core skills?" || lowerText === "¿cuáles son tus habilidades principales?";
+        const isExperience = lowerText === "tell me about your experience." || lowerText === "cuéntame sobre tu experiencia.";
+        const isContact = lowerText === "how can i contact you?" || lowerText === "¿cómo puedo contactarte?";
+
+        if (isSkills || isExperience || isContact) {
+            const responseText = isSkills
+                ? (language === "es"
+                    ? `Sebastián cuenta con un stack tecnológico muy versátil y sólido:
+- **Lenguajes**: C++, Python, Java, Go, JavaScript, TypeScript.
+- **Frameworks & Librerías**: React.js, Next.js, Spring Boot, Flask, FastAPI, Express.js.
+- **Nube e Infraestructura**: AWS (Glue, Athena, S3, Amplify, API Gateway, EC2), Docker, Microservicios y pipelines de datos ETL.
+- **Bases de datos**: PostgreSQL, MySQL, SQLite, MongoDB.
+
+¿Hay alguna tecnología en particular que te interese para tu equipo?`
+                    : `Sebastián has a highly versatile and solid technical stack:
+- **Languages**: C++, Python, Java, Go, JavaScript, TypeScript.
+- **Frameworks & Libs**: React.js, Next.js, Spring Boot, Flask, FastAPI, Express.js.
+- **Cloud & Infra**: AWS (Glue, Athena, S3, Amplify, API Gateway, EC2), Docker, Microservices, and ETL data pipelines.
+- **Databases**: PostgreSQL, MySQL, SQLite, MongoDB.
+
+Is there any technology you are particularly interested in?`)
+                : isExperience
+                    ? (language === "es"
+                        ? `Sebastián es estudiante de Ciencia de la Computación en UTEC (Perú) con experiencia práctica en el desarrollo de aplicaciones web full-stack, pipelines de datos en la nube y optimización de sistemas:
+- **FinTrendAI**: Un pipeline de datos financieros en AWS usando microservicios serverless, Glue ETL y consultas con Athena.
+- **SparseExcel**: Un motor de hoja de cálculo de alto rendimiento escrito en C++ con un visualizador interactivo en 3D de memoria física.
+- **MediGO**: Una plataforma de telemedicina full-stack desarrollada con Spring Boot y React.
+
+Le apasiona la optimización de sistemas y la ingeniería de Inteligencia Artificial y Software, y busca activamente prácticas pre-profesionales.`
+                        : `Sebastián is a Computer Science student at UTEC (Peru) with hands-on experience building full-stack web applications, cloud-native data pipelines, and optimized systems:
+- **FinTrendAI**: An AWS-based financial data pipeline using serverless microservices, Glue ETL, and Athena querying.
+- **SparseExcel**: A high-performance spreadsheet engine written in C++ with an interactive 3D physical memory visualizer.
+- **MediGO**: A full-stack telemedicine platform utilizing Spring Boot and React.
+
+He is passionate about systems optimization and software engineering, and is actively seeking pre-professional internships.`)
+                    : (language === "es"
+                        ? `Puedes ponerte en contacto directo con Sebastián a través de:
+- 📧 **Correo personal**: reateguisebastian1@gmail.com
+- 🐙 **GitHub**: [github.com/SReateguiUtec](https://github.com/SReateguiUtec)
+- 💼 **LinkedIn**: [Sebastián Reátegui](https://linkedin.com)
+
+¡Estará encantado de conversar contigo sobre oportunidades de prácticas pre-profesionales o proyectos interesantes!`
+                        : `You can contact Sebastián directly via:
+- 📧 **Personal Email**: reateguisebastian1@gmail.com
+- 🐙 **GitHub**: [github.com/SReateguiUtec](https://github.com/SReateguiUtec)
+- 💼 **LinkedIn**: [Sebastián Reátegui](https://linkedin.com)
+
+He is looking forward to discussing internship opportunities and interesting collaborations!`);
+
+            const botMessage: Message = {
+                id: `bot-${crypto.randomUUID()}`,
+                sender: "bot",
+                author: "Copilot",
+                text: responseText,
+                timestamp: new Date().toLocaleTimeString(language === "es" ? "es-ES" : "en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                }),
+            };
+            setMessages((prev) => [...prev, botMessage]);
+            setIsLoading(false);
+            return;
+        }
+
         try {
             const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
             if (!apiKey) throw new Error("API Key not found");
 
             const genAI = new GoogleGenerativeAI(apiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
-            const promptContext = `
-You are Sebastian's Copilot for his portfolio website.
+            const systemInstruction = `
+You are "SR Copilot", a warm, exceptionally friendly, and highly professional AI assistant representing Sebastián Reátegui.
+Your tone should be very natural, welcoming, enthusiastic, and developer-friendly. 
 Answer questions about Sebastian concisely and professionally in 1 or 2 sentences max. 
-Here is his basic info: He is a Computer Science student at UTEC. He has projects in web development and data structures.
-User says: ${messageText.trim()}
+
+CRITICAL INSTRUCTIONS:
+- NEVER output robotic system tags, cold logs, or raw terminal codes. 
+- Answer in the language of the user (default to Spanish if they speak Spanish). 
+- Use structured, clean, and elegant paragraphs or bullet points.
+
+Here is Sebastian's full portfolio information for your context:
+- BIO: ${language === "es" ? FULL_STACK_BIO.es : FULL_STACK_BIO.en}
+- PERSONAL INFO & HOBBIES: ${language === "es" ? PERSONAL_EXTRA.es : PERSONAL_EXTRA.en}
+- SKILLS: ${language === "es" ? SKILLS_CONTENT.es : SKILLS_CONTENT.en}
+- PROJECTS: ${PROJECTS_DATA.map((p) => language === "es" ? p.content.es : p.content.en).join('\n\n')}
+- CONTACT: Email: ${CONTACT_INFO.email}, GitHub: ${CONTACT_INFO.github}, Status: ${language === "es" ? CONTACT_INFO.status.es : CONTACT_INFO.status.en}
+
+Answer user questions accurately, warmly, and strictly using the portfolio information above. If you don't know something or it is not in his professional profile, answer politely saying you only have details regarding Sebastian's studies, skills, projects, and contact info, but offer to tell them more about his awesome C++ or AWS work!
 `;
-            const result = await model.generateContent(promptContext);
+            const model = genAI.getGenerativeModel({
+                model: "gemini-2.5-flash",
+                systemInstruction
+            });
+
+            const chatHistory = messages
+                .filter((msg) => msg.author !== "System Error")
+                .map((msg) => ({
+                    role: msg.sender === "user" ? "user" : "model" as const,
+                    parts: [{ text: msg.text }],
+                }));
+
+            // Gemini startChat history must start with a 'user' message
+            const firstUserIdx = chatHistory.findIndex((m) => m.role === "user");
+            const cleanHistory = firstUserIdx !== -1 ? chatHistory.slice(firstUserIdx) : [];
+
+            const chat = model.startChat({ history: cleanHistory });
+            const result = await chat.sendMessage(messageText.trim());
             const responseText = result.response.text();
 
             const botMessage: Message = {
@@ -142,8 +259,6 @@ User says: ${messageText.trim()}
             if (customEvent.detail && !isLoading) {
                 // Scroll to the chat so the user can see the response
                 document.getElementById('copilot')?.scrollIntoView({ behavior: 'smooth' });
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error - we call it without event
                 handleSubmit(undefined, customEvent.detail);
             }
         };
@@ -268,7 +383,7 @@ User says: ${messageText.trim()}
                             aria-label="Reply composer"
                         >
                             <div className="flex flex-wrap gap-2 px-1">
-                                {quickReplies.map((reply) => (
+                                {quickReplies[language === "es" ? "es" : "en"].map((reply) => (
                                     <button
                                         key={reply}
                                         type="button"
@@ -293,7 +408,7 @@ User says: ${messageText.trim()}
                                         }}
                                         placeholder="Ask me something..."
                                         rows={2}
-                                        className="min-h-[4rem] w-full resize-none border-none bg-transparent text-sm text-foreground placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:outline-none"
+                                        className="min-h-16 w-full resize-none border-none bg-transparent text-sm text-foreground placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:outline-none"
                                         disabled={isLoading}
                                     />
                                 </div>

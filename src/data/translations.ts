@@ -34,6 +34,7 @@ export const translations = {
           tech: ["AWS Glue", "Athena", "S3", "Flask", "Spring Boot", "React.js"],
           github: "https://github.com/SReateguiUtec/FinTrendAI",
           live: "#",
+          image: "src/assets/fintrend-compressed.mp4",
           year: "2026"
         },
         {
@@ -43,6 +44,7 @@ export const translations = {
           tech: ["Spring Boot", "React.js", "TypeScript", "Vite", "WebSockets"],
           github: "https://github.com/SReateguiUtec/MediGO-Repository",
           live: "#",
+          image: "src/assets/medigo-compressed.mp4",
           year: "2025"
         },
         {
@@ -52,6 +54,7 @@ export const translations = {
           tech: ["C++", "Javascript", "React.js", "Data Structures"],
           github: "https://github.com/SReateguiUtec/SparseExcel",
           live: "#",
+          image: "src/assets/sparse-compressed.mp4",
           year: "2026"
         }
       ]
@@ -122,6 +125,7 @@ export const translations = {
           tech: ["AWS Glue", "Athena", "S3", "Flask", "Spring Boot", "React.js"],
           github: "https://github.com/SReateguiUtec/FinTrendAI",
           live: "#",
+          image: "src/assets/fintrend-compressed.mp4",
           year: "2026"
         },
         {
@@ -131,6 +135,7 @@ export const translations = {
           tech: ["Spring Boot", "React.js", "TypeScript", "Vite", "WebSockets"],
           github: "https://github.com/SReateguiUtec/MediGO-Repository",
           live: "#",
+          image: "src/assets/medigo-compressed.mp4",
           year: "2025"
         },
         {
@@ -140,6 +145,7 @@ export const translations = {
           tech: ["C++", "Javascript", "React.js", "Estructuras de Datos"],
           github: "https://github.com/SReateguiUtec/SparseExcel",
           live: "#",
+          image: "src/assets/sparse-compressed.mp4",
           year: "2026"
         }
       ]

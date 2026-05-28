@@ -12,6 +12,7 @@ import { cn } from "../../lib/utils"
 import { FULL_STACK_BIO, SKILLS_CONTENT, PROJECTS_DATA, CONTACT_INFO, PERSONAL_EXTRA } from '../../data/content';
 import { useLanguage } from '../../context/LanguageContext';
 import { translations } from '../../data/translations';
+import PortfolioTerminal from './portfolio-terminal';
 
 type Message = {
     id: string;
@@ -101,29 +102,53 @@ export function MorphPanel() {
                 </AnimatePresence>
             </div>
 
-            {/* Panel Lateral (Sidebar) */}
+            {/* Terminal Modal overlay / Mobile Chat Popover */}
             <AnimatePresence>
                 {showForm && (
                     <>
+                        {/* Desktop: Terminal Modal */}
+                        <div className="fixed inset-0 z-[100] hidden md:flex items-center justify-center p-4 sm:p-8 pointer-events-auto">
+                            <motion.div
+                                key="overlay"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute inset-0 bg-black/60 backdrop-blur-md"
+                                onClick={triggerClose}
+                            />
+                            <motion.div
+                                key="terminal-modal"
+                                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                                className="relative w-full max-w-5xl z-10"
+                            >
+                                <PortfolioTerminal onClose={triggerClose} />
+                            </motion.div>
+                        </div>
+
+                        {/* Mobile: Chat Messenger Full Screen Sidebar */}
                         <motion.div
-                            key="overlay"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-99 pointer-events-auto"
-                            onClick={triggerClose}
-                        />
-                        <motion.div
-                            key="sidebar"
-                            ref={wrapperRef}
+                            key="chat-modal"
                             initial={{ x: "100%" }}
                             animate={{ x: 0 }}
                             exit={{ x: "100%" }}
                             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="fixed top-0 right-0 h-dvh w-[450px] max-w-[100vw] bg-[#0c0c0e] border-l border-white/10 shadow-2xl z-100 pointer-events-auto flex flex-col"
+                            className="fixed inset-0 z-[100] w-full h-full md:hidden pointer-events-auto bg-[#0c0c0e] shadow-2xl overflow-hidden"
                         >
                             <InputForm ref={textareaRef} />
                         </motion.div>
+                        
+                        {/* Mobile Overlay (Optional for better focus) */}
+                        <motion.div
+                            key="mobile-overlay"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[90] md:hidden"
+                            onClick={triggerClose}
+                        />
                     </>
                 )}
             </AnimatePresence>

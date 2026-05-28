@@ -33,16 +33,46 @@ export default function ProjectsSection() {
                     {t.projects.list.map((project) => (
                         <div
                             key={project.id}
-                            className="group relative bg-[#050505] border border-white/10 p-6 flex flex-col hover:border-blue-400/40 transition-colors duration-300 shrink-0 w-[85vw] md:w-auto snap-center"
+                            className="group relative bg-[#050505] border border-white/10 p-6 flex flex-col hover:border-blue-400/40 transition-colors duration-300 shrink-0 w-[85vw] md:w-auto snap-center overflow-hidden"
                         >
                             {/* Corner accents */}
-                            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/30 group-hover:border-blue-400 transition-colors duration-300"></div>
-                            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/30 group-hover:border-blue-400 transition-colors duration-300"></div>
-                            <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/30 group-hover:border-blue-400 transition-colors duration-300"></div>
-                            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/30 group-hover:border-blue-400 transition-colors duration-300"></div>
+                            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/30 group-hover:border-blue-400 transition-colors duration-300 z-30"></div>
+                            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/30 group-hover:border-blue-400 transition-colors duration-300 z-30"></div>
+                            <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/30 group-hover:border-blue-400 transition-colors duration-300 z-30"></div>
+                            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/30 group-hover:border-blue-400 transition-colors duration-300 z-30"></div>
+
+                            {/* Project Image */}
+                            {project.image && (
+                                <div className="relative h-48 -mx-6 -mt-6 mb-6 overflow-hidden border-b border-white/10 group-hover:border-blue-400/40 transition-colors duration-300">
+                                    {/* Project Media */}
+                                    {project.image.endsWith('.mp4') || project.image.endsWith('.webm') ? (
+                                        <video 
+                                            src={project.image} 
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+                                            autoPlay 
+                                            loop 
+                                            muted 
+                                            playsInline 
+                                        />
+                                    ) : (
+                                        <>
+                                            {/* Glitch / Tint Overlay (Images only) */}
+                                            <div className="absolute inset-0 bg-blue-900/40 mix-blend-color z-10 group-hover:bg-transparent transition-colors duration-500"></div>
+                                            <img 
+                                                src={project.image} 
+                                                alt={project.title} 
+                                                className="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                                            />
+                                        </>
+                                    )}
+                                    
+                                    {/* Scanline CRT overlay over image */}
+                                    <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(0,0,0,0.2)_1px,transparent_1px)] bg-size-[100%_4px] z-20"></div>
+                                </div>
+                            )}
 
                             {/* Top info */}
-                            <div className="flex justify-between items-center mb-6">
+                            <div className="flex justify-between items-center mb-6 relative z-30">
                                 <span className="text-blue-400 font-mono text-[10px] tracking-widest">SYS.{project.year}</span>
                                 <div className="flex gap-3">
                                     <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white transition-colors">
@@ -54,16 +84,16 @@ export default function ProjectsSection() {
                             </div>
 
                             {/* Title & Desc */}
-                            <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300 flex items-center gap-2">
+                            <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300 flex items-center gap-2 relative z-30">
                                 <Terminal className="w-5 h-5 text-blue-400 shrink-0" />
                                 {project.title}
                             </h3>
-                            <p className="text-white/60 text-sm mb-8 flex-1 leading-relaxed">
+                            <p className="text-white/60 text-sm mb-8 flex-1 leading-relaxed relative z-30">
                                 {project.description}
                             </p>
 
                             {/* Tech Stack */}
-                            <div className="flex flex-wrap gap-2 mt-auto">
+                            <div className="flex flex-wrap gap-2 mt-auto relative z-30">
                                 {project.tech.map((tech, i) => (
                                     <span
                                         key={i}
@@ -75,7 +105,7 @@ export default function ProjectsSection() {
                             </div>
 
                             {/* Hover scanline effect */}
-                            <div className="absolute inset-0 bg-linear-to-b from-transparent via-blue-400/5 to-transparent h-full w-full opacity-0 group-hover:opacity-100 -translate-y-full group-hover:animate-scanline pointer-events-none"></div>
+                            <div className="absolute inset-0 bg-linear-to-b from-transparent via-blue-400/5 to-transparent h-full w-full opacity-0 group-hover:opacity-100 -translate-y-full group-hover:animate-scanline pointer-events-none z-20"></div>
                         </div>
                     ))}
                 </div>

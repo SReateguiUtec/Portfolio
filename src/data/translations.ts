@@ -30,8 +30,8 @@ export const translations = {
         {
           id: 1,
           title: "FinTrend AI",
-          description: "Cloud-Native Financial Data Pipeline & Analytics. Designed and built an end-to-end serverless data pipeline using AWS Glue to automate ETL workflows and structured analytical querying.",
-          tech: ["AWS Glue", "Athena", "S3", "Flask", "Spring Boot", "React.js"],
+          description: "Cloud-Native Financial Data Pipeline & Analytics developed with a microservices architecture. Designed and built an end-to-end serverless data pipeline using AWS Glue to automate ETL workflows and structured analytical querying.",
+          tech: ["AWS Glue", "Athena", "S3", "Flask", "Spring Boot", "Express.js", "React.js", "MongoDB", "Postgres", "MySQL"],
           github: "https://github.com/SReateguiUtec/FinTrendAI",
           live: "#",
           image: "/fintrend-compressed.mp4",
@@ -40,8 +40,8 @@ export const translations = {
         {
           id: 2,
           title: "MediGO",
-          description: "Full-Stack Telemedicine Platform. Solely architected a secure REST API with JWT authentication. Developed the responsive SPA using React 19 and integrated real-time video consultations via Whereby SDK.",
-          tech: ["Spring Boot", "React.js", "TypeScript", "Vite", "WebSockets"],
+          description: "Full-Stack Telemedicine Platform. Architected a secure REST API with JWT authentication. Developed a responsive SPA using React 19, integrated real-time video via Whereby SDK, Stripe sandbox payments, an AI chatbot powered by Gemini, and real-time WebSocket chat between patients and doctors.",
+          tech: ["Spring Boot", "Postgres", "React.js", "TypeScript", "Stripe", "Gemini", "WebSockets"],
           github: "https://github.com/SReateguiUtec/MediGO-Repository",
           live: "#",
           image: "/medigo-compressed.mp4",
@@ -50,7 +50,7 @@ export const translations = {
         {
           id: 3,
           title: "SparseExcel",
-          description: "Memory-Optimized Spreadsheet Engine. Implemented a memory-efficient spreadsheet engine from scratch leveraging custom Sparse Matrix representations to eliminate memory overhead.",
+          description: "Memory-Optimized Spreadsheet Engine. Implemented a memory-efficient backend in C++ leveraging custom Sparse Matrix representations, paired with a frontend featuring dual 2D and 3D data visualization.",
           tech: ["C++", "Javascript", "React.js", "Data Structures"],
           github: "https://github.com/SReateguiUtec/SparseExcel",
           live: "#",
@@ -131,8 +131,8 @@ export const translations = {
         {
           id: 1,
           title: "FinTrend AI",
-          description: "Analítica Financiera Nube-Nativa. Diseñé y construí un pipeline de datos serverless usando AWS Glue para automatizar flujos ETL y consultas analíticas estructuradas.",
-          tech: ["AWS Glue", "Athena", "S3", "Flask", "Spring Boot", "React.js"],
+          description: "Analítica Financiera Nube-Nativa desarrollada con una arquitectura de microservicios. Diseñé y construí un pipeline de datos serverless usando AWS Glue para automatizar flujos ETL y consultas analíticas estructuradas.",
+          tech: ["AWS Glue", "Athena", "S3", "Flask", "Spring Boot", "Express.js", "React.js", "MongoDB", "Postgres", "MySQL"],
           github: "https://github.com/SReateguiUtec/FinTrendAI",
           live: "#",
           image: "/fintrend-compressed.mp4",
@@ -141,8 +141,8 @@ export const translations = {
         {
           id: 2,
           title: "MediGO",
-          description: "Plataforma Full-Stack de Telemedicina. Diseñé una API REST segura con autenticación JWT. Desarrollé la SPA usando React 19 e integré consultas por video en tiempo real vía Whereby SDK.",
-          tech: ["Spring Boot", "React.js", "TypeScript", "Vite", "WebSockets"],
+          description: "Plataforma Full-Stack de Telemedicina. Diseñé una API REST segura con autenticación JWT. Desarrollé la SPA usando React 19, integrando consultas por video vía Whereby SDK, pagos en modo sandbox con Stripe, un chatbot con Gemini y chat en tiempo real con WebSockets entre pacientes y médicos.",
+          tech: ["Spring Boot", "Postgres", "React.js", "TypeScript", "Stripe", "Gemini", "WebSockets"],
           github: "https://github.com/SReateguiUtec/MediGO-Repository",
           live: "#",
           image: "/medigo-compressed.mp4",
@@ -151,7 +151,7 @@ export const translations = {
         {
           id: 3,
           title: "SparseExcel",
-          description: "Motor de Hoja de Cálculo Optimizado en Memoria. Implementé un motor desde cero utilizando representaciones personalizadas de Matrices Dispersas para eliminar el exceso de memoria.",
+          description: "Motor de Hoja de Cálculo Optimizado en Memoria. Implementé un backend eficiente en C++ utilizando representaciones personalizadas de Matrices Dispersas, junto a un frontend con visualización de datos dual en 2D y 3D.",
           tech: ["C++", "Javascript", "React.js", "Estructuras de Datos"],
           github: "https://github.com/SReateguiUtec/SparseExcel",
           live: "#",

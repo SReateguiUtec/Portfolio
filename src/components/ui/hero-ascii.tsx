@@ -20,11 +20,11 @@ export default function HeroAscii() {
         // 3 scans = L * 3 ticks
         // 5 seconds pause = 5000 / 80 = ~63 ticks
         const totalCycleTicks = L * 3 + 63;
-        
+
         const timer = setInterval(() => {
             setTick(t => (t + 1) % totalCycleTicks);
         }, 80);
-        
+
         return () => clearInterval(timer);
     }, [L]);
 
@@ -109,10 +109,10 @@ export default function HeroAscii() {
                                 {asciiLines.map((line, i) => {
                                     const isScanning = i === scanRow;
                                     const rowColor = 'text-blue-400';
-                                    
+
                                     return (
-                                        <pre 
-                                            key={i} 
+                                        <pre
+                                            key={i}
                                             className={`${isScanning ? 'text-white drop-shadow-[0_0_12px_rgba(255,255,255,1)] brightness-150 font-black' : rowColor} transition-colors duration-75 ease-in-out m-0 p-0 leading-[1.1]`}
                                         >
                                             {line}

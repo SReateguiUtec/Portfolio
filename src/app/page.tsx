@@ -6,6 +6,7 @@ import EducationSection from '../components/ui/education-section';
 import LogoCloudMarquee from '../components/ui/logo-cloud';
 import ContactSection from '../components/ui/contact-section';
 import MorphPanel from '../components/ui/ai-input';
+import Footer from '../components/ui/footer';
 
 export default function Home() {
 
@@ -22,6 +23,7 @@ export default function Home() {
             </div>
 
             <ContactSection />
+            <Footer />
 
             {/* Floating AI Input */}
             <MorphPanel />

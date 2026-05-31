@@ -44,7 +44,7 @@ export default function ContactSection() {
     };
 
     return (
-        <section id="contact" className="relative w-full py-16 lg:py-24 overflow-hidden border-t border-white/10 bg-black">
+        <section id="contact" className="relative w-full pt-16 pb-8 lg:pt-24 lg:pb-12 overflow-hidden border-t border-white/10 bg-black">
             <div className="container mx-auto px-6 lg:px-8 relative z-10">
                 <div className="mb-16">
                     <div className="flex items-center gap-4 mb-4">
@@ -152,7 +152,7 @@ export default function ContactSection() {
 
                 {/* Mobile ASCII (Below Form) */}
                 <div className="lg:hidden w-full flex justify-center mt-16 opacity-40 hover:opacity-100 transition-opacity duration-700 cursor-default">
-                    <pre className="font-mono text-[4px] sm:text-[5px] md:text-[8px] text-blue-500 leading-tight text-center overflow-hidden">
+                    <pre className="font-mono text-[7px] sm:text-[10px] md:text-[12px] text-blue-500 leading-tight text-center overflow-hidden">
                         {language === 'en' ? THANKS_EN_LOGO : THANKS_ES_LOGO}
                     </pre>
                 </div>

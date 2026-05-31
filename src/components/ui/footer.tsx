@@ -22,7 +22,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full border-t border-white/10 bg-black/50 backdrop-blur-md pt-8 pb-32 md:pb-8 mt-12">
+    <footer className="w-full border-t border-white/10 bg-black/50 backdrop-blur-md pt-8 pb-32 md:pb-8 lg:mt-12">
       <div className="max-w-6xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
 
         {/* Left side: Copyright */}
@@ -56,7 +56,7 @@ export default function Footer() {
             <WhatsAppIcon size={20} />
           </a>
           <a
-            href="mailto:sebastian.reategui@utec.edu.pe"
+            href="mailto:reateguisebastian1@gmail.com"
             className="text-red-500 md:text-gray-400 md:hover:text-red-500 transition-colors duration-200"
             aria-label="Email"
           >

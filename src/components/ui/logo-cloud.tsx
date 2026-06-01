@@ -72,7 +72,7 @@ export default function LogoCloudMarquee({
                 <div className="mb-16">
                     <div className="flex items-center gap-4 mb-4">
                         <LayersIcon className="text-blue-400" size={32} />
-                        <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight uppercase">{t.logoCloud.title}</h2>
+                        <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">{t.logoCloud.title}</h2>
                     </div>
                     <div className="flex items-center gap-2 opacity-60">
                         <div className="w-12 h-px bg-white"></div>

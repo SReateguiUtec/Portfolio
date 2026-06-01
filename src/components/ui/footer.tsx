@@ -30,8 +30,8 @@ export default function Footer() {
           <p>
             &copy; {currentYear} Sebastian Reategui. {language === 'en' ? 'All rights reserved.' : 'Todos los derechos reservados.'}
           </p>
-          <p className="mt-1 text-xs text-gray-500">
-            {language === 'en' ? 'Made with ❤️ and coffee.' : 'Hecho con ❤️ y café.'}
+          <p className="mt-1 text-xs text-gray-500 flex items-center gap-1 md:justify-start justify-center">
+            {language === 'en' ? 'Made with ❤️ & ☕' : 'Hecho con ❤️ & ☕'}
           </p>
         </div>
 

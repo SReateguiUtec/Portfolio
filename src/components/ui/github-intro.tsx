@@ -1,5 +1,7 @@
 "use client";
 import React from 'react';
+import { Pin } from 'lucide-react';
+import { UserIcon } from '../user';
 import { CommitsGrid } from './commits-grid';
 import { useLanguage } from '../../context/LanguageContext';
 import { translations } from '../../data/translations';
@@ -8,13 +10,35 @@ export default function GithubIntro() {
     const { language } = useLanguage();
     const t = translations[language];
 
+    // Format badge text depending on language
+    const badgeText = language === 'es' ? 'Sobre_Mi' : 'About_Me';
+
     return (
-        <section className="container mx-auto px-4 lg:px-8 py-10 flex justify-center relative z-10">
+        <section id="about" className="container mx-auto px-4 lg:px-8 py-10 flex justify-center relative z-10">
             <div className="relative w-full">
+                {/* Section Header */}
+                <div className="mb-12">
+                    <div className="flex items-center gap-4 mb-4">
+                        <UserIcon className="text-blue-400" size={32} />
+                        <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">{t.nav.about}</h2>
+                    </div>
+                    <div className="flex items-center gap-2 opacity-60">
+                        <div className="w-12 h-px bg-white"></div>
+                        <span className="text-white text-[10px] font-mono tracking-widest uppercase">{badgeText}</span>
+                        <div className="flex-1 h-px bg-white"></div>
+                    </div>
+                </div>
+
                 {/* Luz pulsante de fondo */}
-                <div className="absolute inset-0 bg-blue-500/20 blur-[80px] animate-pulse rounded-[3rem] pointer-events-none -z-10"></div>
+                <div className="absolute inset-0 bg-blue-500/20 blur-[80px] animate-pulse rounded-[3rem] pointer-events-none -z-10 mt-24"></div>
 
                 <div className="w-full flex flex-col md:flex-row items-center md:items-start gap-8 bg-zinc-950 border border-white/10 p-6 md:p-8 rounded-xl relative overflow-hidden transition-transform duration-500 hover:scale-[1.02]">
+                    {/* Pinned Badge - Top Left */}
+                    <div className="absolute top-0 left-0 bg-white/5 px-3 py-1 rounded-br-lg text-[10px] font-mono text-gray-400 border-r border-b border-white/10 flex items-center gap-1.5">
+                        <Pin size={10} className="text-gray-400" />
+                        <span>Pinned</span>
+                    </div>
+
                     {/* Decoración de fondo estilo terminal */}
                     <div className="absolute top-0 right-0 bg-[#3b82f6]/10 px-3 py-1 rounded-bl-lg text-xs font-mono text-[#60a5fa] border-l border-b border-[#3b82f6]/30">
                         {t.intro.readme}
@@ -73,15 +97,15 @@ export default function GithubIntro() {
 
                         <ul className="space-y-2 mt-5">
                             <li className="flex items-start gap-3">
-                                <span className="text-xl shrink-0">🎓</span>
+                                <span className="w-6 flex justify-center shrink-0 text-xl">🎓</span>
                                 <span dangerouslySetInnerHTML={{ __html: t.intro.bullet1 }}></span>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="text-xl shrink-0">🌱</span>
+                                <span className="w-6 flex justify-center shrink-0 text-xl">🚀</span>
                                 <span dangerouslySetInnerHTML={{ __html: t.intro.bullet2 }}></span>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="text-xl shrink-0">⚡</span>
+                                <span className="w-6 flex justify-center shrink-0 text-xl">🧩</span>
                                 <span dangerouslySetInnerHTML={{ __html: t.intro.bullet3 }}></span>
                             </li>
                         </ul>

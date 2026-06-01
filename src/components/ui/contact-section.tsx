@@ -5,6 +5,7 @@ import { SendIcon } from '../send';
 import { useLanguage } from '../../context/LanguageContext';
 import { translations } from '../../data/translations';
 import { THANKS_EN_LOGO, THANKS_ES_LOGO } from '../ui/ascii';
+import { FrameButton } from './frame-button';
 
 export default function ContactSection() {
     const { language } = useLanguage();
@@ -49,7 +50,7 @@ export default function ContactSection() {
                 <div className="mb-16">
                     <div className="flex items-center gap-4 mb-4">
                         <SendIcon className="text-blue-400" size={32} />
-                        <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight uppercase">{t.contact.title}</h2>
+                        <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">{t.contact.title}</h2>
                     </div>
                     <div className="flex items-center gap-2 opacity-60">
                         <div className="w-12 h-px bg-white"></div>
@@ -74,20 +75,32 @@ export default function ContactSection() {
                             </pre>
                         </div>
                     </div>
-                    {/* Right Column: Serious Contact Form */}
-                    <div className="w-full lg:w-1/2 bg-transparent border border-white/10 rounded-2xl p-6 md:p-10 relative">
+                    {/* Right Column: Technical Contact Form */}
+                    <div className="w-full lg:w-1/2 bg-black border border-blue-500/30 rounded-lg p-5 md:p-6 relative shadow-[0_0_30px_rgba(59,130,246,0.1)] font-mono">
+                        {/* Terminal Header Decor */}
+                        <div className="absolute top-0 left-0 right-0 bg-blue-500/10 border-b border-blue-500/30 p-2 flex items-center justify-between rounded-t-lg">
+                            <div className="flex gap-2 pl-2">
+                                <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+                                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+                                <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span className="text-[10px] text-blue-400 font-bold tracking-widest">SECURE_TRANSMISSION_PROTOCOL</span>
+                            <div className="w-10"></div>
+                        </div>
+
                         {status === 'success' && (
-                            <div className="absolute inset-0 z-20 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 animate-in fade-in duration-300 rounded-lg border border-green-500/30">
+                            <div className="absolute inset-0 z-20 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 animate-in fade-in duration-300 rounded-lg border border-green-500/30">
                                 <CheckCircle2 className="w-16 h-16 text-green-400 mb-4" />
-                                <h4 className="text-2xl font-bold text-white mb-2">{t.contact.formSuccess}</h4>
+                                <h4 className="text-xl font-bold text-green-400 mb-2">{t.contact.formSuccess}</h4>
+                                <p className="text-green-400/50 text-xs mt-2">TRANSMISSION_COMPLETE</p>
                             </div>
                         )}
 
-                        <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
-                            <div className="flex flex-col sm:flex-row gap-4 w-full">
-                                <div className="flex flex-col gap-2 flex-1">
-                                    <label className="text-white font-medium text-sm">
-                                        {t.contact.formNamePlaceholder.includes('Nombre') ? 'Nombre' : 'Name'}
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full mt-6">
+                            <div className="flex flex-col sm:flex-row gap-5 w-full">
+                                <div className="flex flex-col gap-2 relative group flex-1">
+                                    <label className="text-blue-400 text-xs tracking-widest uppercase flex gap-2 items-center">
+                                        <span className="text-white/50">{">"}</span> {t.contact.formNamePlaceholder.includes('Nombre') ? 'ID_USUARIO' : 'USER_ID'}
                                     </label>
                                     <input
                                         type="text"
@@ -95,13 +108,14 @@ export default function ContactSection() {
                                         disabled={status === 'loading'}
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                        className="w-full bg-[#111111] border border-white/10 focus:border-white/30 rounded-lg px-4 py-3 text-white text-sm outline-none transition-colors disabled:opacity-50"
+                                        className="w-full bg-transparent border-b border-white/20 focus:border-blue-400 rounded-none px-0 py-2 text-white text-sm outline-none transition-all duration-300 disabled:opacity-50 font-mono placeholder:text-white/20 focus:shadow-[0_1px_10px_rgba(59,130,246,0.2)]"
+                                        placeholder="_"
                                     />
                                 </div>
 
-                                <div className="flex flex-col gap-2 flex-1">
-                                    <label className="text-white font-medium text-sm">
-                                        {t.contact.formEmailPlaceholder.includes('correo') ? 'Correo' : 'Email'}
+                                <div className="flex flex-col gap-2 relative group flex-1">
+                                    <label className="text-blue-400 text-xs tracking-widest uppercase flex gap-2 items-center">
+                                        <span className="text-white/50">{">"}</span> {t.contact.formEmailPlaceholder.includes('correo') ? 'DIR_CORREO' : 'MAIL_DIR'}
                                     </label>
                                     <input
                                         type="email"
@@ -109,43 +123,53 @@ export default function ContactSection() {
                                         disabled={status === 'loading'}
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full bg-[#111111] border border-white/10 focus:border-white/30 rounded-lg px-4 py-3 text-white text-sm outline-none transition-colors disabled:opacity-50"
+                                        className="w-full bg-transparent border-b border-white/20 focus:border-blue-400 rounded-none px-0 py-2 text-white text-sm outline-none transition-all duration-300 disabled:opacity-50 font-mono placeholder:text-white/20 focus:shadow-[0_1px_10px_rgba(59,130,246,0.2)]"
+                                        placeholder="_"
                                     />
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-2">
-                                <label className="text-white font-medium text-sm">
-                                    {t.contact.formMessagePlaceholder.includes('ayudar') ? 'Mensaje' : 'Message'}
+                            <div className="flex flex-col gap-2 relative group">
+                                <label className="text-blue-400 text-xs tracking-widest uppercase flex gap-2 items-center">
+                                    <span className="text-white/50">{">"}</span> {t.contact.formMessagePlaceholder.includes('ayudar') ? 'PAYLOAD' : 'PAYLOAD'}
                                 </label>
                                 <textarea
                                     required
                                     disabled={status === 'loading'}
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
-                                    rows={4}
-                                    className="w-full bg-[#111111] border border-white/10 focus:border-white/30 rounded-lg px-4 py-3 text-white text-sm outline-none transition-colors resize-none disabled:opacity-50"
+                                    rows={3}
+                                    className="w-full bg-[#050505] border border-white/20 focus:border-blue-400 rounded-md p-3 text-white text-sm outline-none transition-all duration-300 resize-none disabled:opacity-50 font-mono focus:shadow-[0_0_15px_rgba(59,130,246,0.2)]"
+                                    placeholder="..."
                                 />
                             </div>
 
                             {status === 'error' && (
-                                <div className="flex items-center gap-2 text-red-400 text-sm mt-1 bg-red-400/10 p-4 rounded-lg border border-red-400/20 animate-in fade-in">
-                                    <XCircle className="w-5 h-5" />
-                                    <span>{t.contact.formError}</span>
+                                <div className="flex items-center gap-2 text-red-400 text-xs mt-1 bg-red-400/10 p-3 rounded border border-red-400/20 animate-in fade-in uppercase tracking-widest">
+                                    <XCircle className="w-4 h-4 shrink-0" />
+                                    <span>[ERR] {t.contact.formError}</span>
                                 </div>
                             )}
 
-                            <button
+                            <FrameButton
+                                as="button"
                                 type="submit"
+                                variant="outline"
+                                glow={true}
                                 disabled={status === 'loading'}
-                                className="mt-2 w-full bg-white hover:bg-gray-200 text-black font-semibold text-sm py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="mt-4 w-full text-blue-400 border-blue-500 hover:bg-blue-500/10 hover:border-blue-400 hover:text-blue-300 font-bold tracking-widest text-xs sm:text-sm py-4 px-6 rounded-none transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group relative overflow-visible uppercase"
                             >
                                 {status === 'loading' ? (
-                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                    <>
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                        <span>ENCRYPTING...</span>
+                                    </>
                                 ) : (
-                                    <span>{t.contact.formSubmit.includes('Enviar') ? 'Enviar' : 'Submit'}</span>
+                                    <>
+                                        <span>[ {t.contact.formSubmit.includes('Enviar') ? 'EJECUTAR_ENVÍO' : 'EXECUTE_TX'} ]</span>
+                                    </>
                                 )}
-                            </button>
+                            </FrameButton>
                         </form>
                     </div>
                 </div>

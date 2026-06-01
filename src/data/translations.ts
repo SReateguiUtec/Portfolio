@@ -1,16 +1,22 @@
 export const translations = {
   en: {
     nav: {
-      projects: "PROJECTS",
-      education: "EDUCATION",
-      skills: "SKILLS",
-      contact: "CONTACT"
+      about: "About Me",
+      projects: "Projects",
+      education: "Education",
+      skills: "Skills",
+      contact: "Contact"
     },
     hero: {
-      portfolio: "PORTFOLIO",
-      downloadResume: "DOWNLOAD RESUME",
+      portfolio: "Portfolio",
+      downloadResume: "Download Resume",
       role: "CS Student @ UTEC.",
-      description: "Passionate about AI & ML Engineering, Systems Optimization, Cloud-Native Infrastructure and Fintech."
+      description: "Passionate about AI & ML Engineering, Full Stack Development, Systems Optimization and Cloud-Native Infrastructure.",
+      metrics: {
+        metric1: { value: "3rd", label: "YEAR CS" },
+        metric2: { value: "5+", label: "FEATURED PROJECTS" },
+        metric3: { value: "AI & SW", label: "FOCUSED ENG." }
+      }
     },
     intro: {
       readme: "README.md",
@@ -24,7 +30,7 @@ export const translations = {
       more: "More"
     },
     projects: {
-      title: "PROJECTS",
+      title: "Projects",
       featured: "Featured_Projects",
       list: [
         {
@@ -60,27 +66,27 @@ export const translations = {
       ]
     },
     education: {
-      title: "EDUCATION",
-      background: "ACADEMIC_BACKGROUND",
+      title: "Education",
+      background: "Academic_Background",
       utec: "Universidad de Ingeniería y Tecnología (UTEC)",
       degree: "Bachelor of Science in Computer Science",
       award: "Tim Berners Lee Contest Finalist - CS2031 Platform-Based Development",
       inProgress: "IN_PROGRESS"
     },
     skills: {
-      title: "SKILLS_AND_TECHNOLOGIES",
+      title: "Skills & Technologies",
       frontend: "Frontend",
       backend: "Backend",
       tools: "Tools & Cloud"
     },
     logoCloud: {
-      title: "SKILLS",
-      badge: "TECHSTACK_&_TOOLS",
+      title: "Skills",
+      badge: "Tech_Stack_&_Tools",
       description: "Languages, frameworks, tools and infrastructure I use to build scalable applications."
     },
     contact: {
-      title: "CONTACT",
-      getInTouch: "GET_IN_TOUCH",
+      title: "Contact",
+      getInTouch: "Get_In_Touch",
       heading: "Let's build something great.",
       desc: "Currently open for new opportunities, collaborations, and interesting projects. Feel free to reach out!",
       email: "Email me",
@@ -102,16 +108,22 @@ export const translations = {
   },
   es: {
     nav: {
-      projects: "PROYECTOS",
-      education: "EDUCACIÓN",
-      skills: "HABILIDADES",
-      contact: "CONTACTO"
+      about: "Sobre Mí",
+      projects: "Proyectos",
+      education: "Educación",
+      skills: "Habilidades",
+      contact: "Contacto"
     },
     hero: {
-      portfolio: "PORTAFOLIO",
-      downloadResume: "DESCARGAR CV",
+      portfolio: "Portafolio",
+      downloadResume: "Descargar CV",
       role: "Estudiante de CC @ UTEC.",
-      description: "Apasionado por Ingeniería en IA y ML, Optimización de Sistemas, Infraestructura Nube-Nativa y Fintech."
+      description: "Apasionado por Ingeniería en IA y ML, Desarrollo Full Stack, Optimización de Sistemas e Infraestructura Nube-Nativa.",
+      metrics: {
+        metric1: { value: "3er", label: "AÑO DE CS" },
+        metric2: { value: "5+", label: "PROYECTOS DESTACADOS" },
+        metric3: { value: "IA & SW", label: "ENFOQUE PRINCIPAL" }
+      }
     },
     intro: {
       readme: "README.md",
@@ -125,7 +137,7 @@ export const translations = {
       more: "Más"
     },
     projects: {
-      title: "PROYECTOS",
+      title: "Proyectos",
       featured: "Proyectos_Destacados",
       list: [
         {
@@ -161,27 +173,27 @@ export const translations = {
       ]
     },
     education: {
-      title: "EDUCACIÓN",
-      background: "HISTORIAL_ACADÉMICO",
+      title: "Educación",
+      background: "Historial_Académico",
       utec: "Universidad de Ingeniería y Tecnología (UTEC)",
       degree: "Bachiller en Ciencia de la Computación",
       award: "Finalista Concurso Tim Berners Lee - CS2031 Desarrollo Basado en Plataformas",
       inProgress: "EN_CURSO"
     },
     skills: {
-      title: "HABILIDADES_Y_TECNOLOGÍAS",
+      title: "Habilidades y Tecnologías",
       frontend: "Frontend",
       backend: "Backend",
       tools: "Herramientas y Nube"
     },
     logoCloud: {
-      title: "HABILIDADES",
-      badge: "TECNOLOGÍAS_Y_HERRAMIENTAS",
+      title: "Habilidades",
+      badge: "Tecnologías_y_Herramientas",
       description: "Lenguajes, frameworks, herramientas e infraestructura que uso para construir aplicaciones escalables."
     },
     contact: {
-      title: "CONTACTO",
-      getInTouch: "CONTACTAME",
+      title: "Contacto",
+      getInTouch: "Contáctame",
       heading: "Construyamos algo increíble.",
       desc: "Actualmente abierto a nuevas oportunidades, colaboraciones y proyectos interesantes. ¡No dudes en contactarme!",
       email: "Escríbeme",

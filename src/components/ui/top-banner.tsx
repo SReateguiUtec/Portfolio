@@ -24,12 +24,10 @@ export default function TopBanner() {
                 }}
             />
             
-            <div className="relative z-10 flex items-center justify-center gap-2 md:gap-3 w-full px-2">
-                {/* Status dot */}
-                <span className="w-1.5 h-1.5 md:w-2 md:h-2 shrink-0 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_2px_rgba(59,130,246,0.5)]" />
-                
-                {/* Text */}
-                <span className="font-mono text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-wider sm:tracking-[0.2em] text-white/70 whitespace-nowrap truncate">
+            <div className="relative z-10 flex items-center justify-center w-full px-2">
+                {/* Text with inline dot */}
+                <span className="font-mono text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-wider sm:tracking-[0.2em] text-white/70 text-center leading-relaxed">
+                    <span className="inline-block w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_2px_rgba(59,130,246,0.5)] mr-2 md:mr-3 mb-px" />
                     {t.banner.text}
                 </span>
             </div>

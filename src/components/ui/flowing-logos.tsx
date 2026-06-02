@@ -29,12 +29,15 @@ export function FlowingLogos({ data, className, reverse = false }: FlowingLogosP
           )}
         >
           {data.map((logo, i) => (
-            <div key={i} className="flex items-center justify-center shrink-0">
+            <div key={i} className="group/item flex flex-col items-center justify-center shrink-0 gap-2">
               <img
                 src={logo.image}
                 alt={logo.name}
-                className={cn("h-10 w-auto object-contain opacity-40 transition-all duration-300 hover:opacity-100", logo.className)}
+                className={cn("h-10 w-auto object-contain opacity-40 transition-all duration-300 group-hover/item:opacity-100", logo.className)}
               />
+              <span className="text-xs font-mono text-white/40 transition-all duration-300 group-hover/item:text-white/100">
+                {logo.name}
+              </span>
             </div>
           ))}
         </div>

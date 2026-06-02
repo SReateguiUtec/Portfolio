@@ -91,7 +91,7 @@ export default function EducationSection() {
                         title="Click to change camera angle"
                     >
                         {/* Base ASCII */}
-                        <pre className="font-mono text-[3px] sm:text-[4px] md:text-[5px] lg:text-[6px] leading-[3px] sm:leading-[4px] md:leading-[5px] lg:leading-[6px] text-white/80 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">
+                        <pre className="font-mono text-[3px] sm:text-[3px] md:text-[4px] lg:text-[5px] leading-[3px] sm:leading-[3px] md:leading-[4px] lg:leading-[5px] text-white/80 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">
                             {currentAscii}
                         </pre>
 
@@ -103,11 +103,11 @@ export default function EducationSection() {
                         />
 
                         {/* Glitch Layer 1 */}
-                        <pre className="absolute top-0 font-mono text-[3px] sm:text-[4px] md:text-[5px] lg:text-[6px] leading-[3px] sm:leading-[4px] md:leading-[5px] lg:leading-[6px] text-cyan-400 mix-blend-screen opacity-0 animate-glitch-1 group-hover/glitch:opacity-0" style={{ textShadow: '-2px 0 0 #0ff' }}>
+                        <pre className="absolute top-0 font-mono text-[3px] sm:text-[3px] md:text-[4px] lg:text-[5px] leading-[3px] sm:leading-[3px] md:leading-[4px] lg:leading-[5px] text-cyan-400 mix-blend-screen opacity-0 animate-glitch-1 group-hover/glitch:opacity-0" style={{ textShadow: '-2px 0 0 #0ff' }}>
                             {currentAscii}
                         </pre>
                         {/* Glitch Layer 2 */}
-                        <pre className="absolute top-0 font-mono text-[3px] sm:text-[4px] md:text-[5px] lg:text-[6px] leading-[3px] sm:leading-[4px] md:leading-[5px] lg:leading-[6px] text-fuchsia-500 mix-blend-screen opacity-0 animate-glitch-2 group-hover/glitch:opacity-0" style={{ textShadow: '2px 0 0 #f0f' }}>
+                        <pre className="absolute top-0 font-mono text-[3px] sm:text-[3px] md:text-[4px] lg:text-[5px] leading-[3px] sm:leading-[3px] md:leading-[4px] lg:leading-[5px] text-fuchsia-500 mix-blend-screen opacity-0 animate-glitch-2 group-hover/glitch:opacity-0" style={{ textShadow: '2px 0 0 #f0f' }}>
                             {currentAscii}
                         </pre>
                     </div>

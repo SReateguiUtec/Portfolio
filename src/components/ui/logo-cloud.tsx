@@ -7,6 +7,7 @@ import { FlowingLogos } from './flowing-logos';
 import { cn } from '../../lib/utils';
 import { useLanguage } from '../../context/LanguageContext';
 import { translations } from '../../data/translations';
+import AgenticWorkflow from './agentic-workflow';
 
 interface Logo {
     name: string;
@@ -79,15 +80,10 @@ export default function LogoCloudMarquee({
                         <span className="text-white text-[10px] font-mono tracking-widest">{t.logoCloud.badge}</span>
                         <div className="flex-1 h-px bg-white"></div>
                     </div>
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className='mt-6 max-w-2xl text-white/60 text-sm md:text-base leading-relaxed'
-                    >
-                        {t.logoCloud.description}
-                    </motion.p>
+                </div>
+
+                <div className="w-screen relative left-1/2 ml-[-50vw] -mt-8 mb-4">
+                    <AgenticWorkflow />
                 </div>
 
                 <motion.div
@@ -114,9 +110,9 @@ export default function LogoCloudMarquee({
             </div>
 
             {/* Exactly as requested in the reference code */}
-            <div className="relative -mt-16 h-96 w-full overflow-hidden mask-[radial-gradient(50%_50%,white,transparent)]">
+            <div className="relative -mt-16 h-96 w-full overflow-hidden mask-[radial-gradient(50%_50%,white,transparent)] flex flex-col items-center">
                 <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,rgba(59,130,246,1),transparent_70%)] before:opacity-40" />
-                <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-white/20 bg-zinc-900" />
+                <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-white/20 bg-zinc-950" />
             </div>
         </section>
     );

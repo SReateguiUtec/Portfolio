@@ -4,7 +4,7 @@ export const translations = {
       about: "About Me",
       projects: "Projects",
       education: "Education",
-      skills: "Skills",
+      skills: "Stack & Workflow",
       contact: "Contact"
     },
     hero: {
@@ -82,7 +82,7 @@ export const translations = {
       tools: "Tools & Cloud"
     },
     logoCloud: {
-      title: "Skills",
+      title: "Stack & Workflow",
       badge: "Tech_Stack_&_Tools",
       description: "Languages, frameworks, tools and infrastructure I use to build scalable applications."
     },
@@ -106,6 +106,14 @@ export const translations = {
     },
     banner: {
       text: "Have more questions about me? SR Copilot is here to help!"
+    },
+    agentic: {
+      title: "Agentic Development Workflow",
+      subtitle: "10x PRODUCTIVITY MULTIPLIER",
+      desc: "Prototyping and scaling complex systems through parallel agent orchestration, MCP Servers, and custom Skills.",
+      bullet1: "AI-Pair Programming",
+      bullet2: "Automated Code Generation",
+      bullet3: "Rapid Prototyping & CI/CD"
     }
   },
   es: {
@@ -113,7 +121,7 @@ export const translations = {
       about: "Sobre Mí",
       projects: "Proyectos",
       education: "Educación",
-      skills: "Habilidades",
+      skills: "Stack & Workflow",
       contact: "Contacto"
     },
     hero: {
@@ -191,7 +199,7 @@ export const translations = {
       tools: "Herramientas y Nube"
     },
     logoCloud: {
-      title: "Habilidades",
+      title: "Stack & Workflow",
       badge: "Tecnologías_y_Herramientas",
       description: "Lenguajes, frameworks, herramientas e infraestructura que uso para construir aplicaciones escalables."
     },
@@ -214,7 +222,15 @@ export const translations = {
       placeholder: "Pregúntale a SR Copilot..."
     },
     banner: {
-      text: "¿Tienes más preguntas sobre mí? SR Copilot está listo para atenderte!"
+      text: "¿Tienes más preguntas sobre mí? ¡SR Copilot está aquí para ayudarte!"
+    },
+    agentic: {
+      title: "Agentic Development Workflow",
+      subtitle: "MULTIPLICADOR DE PRODUCTIVIDAD 10X",
+      desc: "Prototipando y escalando sistemas complejos mediante orquestación de agentes en paralelo, MCP Servers y Skills personalizados.",
+      bullet1: "Programación en Pareja con IA",
+      bullet2: "Generación de Código Automatizada",
+      bullet3: "Prototipado Rápido y CI/CD"
     }
   }
 };

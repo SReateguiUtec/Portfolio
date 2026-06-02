@@ -23,7 +23,7 @@ ${lang === 'es' ? "¡Bienvenido a Copilot! Escribe 'help' para ver los comandos 
 
     const [history, setHistory] = useState<Array<{ command: string; output: string }>>([
         {
-            command: '/welcome', 
+            command: '/welcome',
             output: getWelcomeMessage('en') // This gets overridden dynamically during render below
         }
     ]);
@@ -135,9 +135,9 @@ I'm currently open to new opportunities, collaborations, or just to chat about t
         if (!currentCommand.trim() || isLoading) return;
         const cmdText = currentCommand.trim()
         const cmd = cmdText.toLowerCase()
-        
+
         const commandFn = commands[cmd as keyof typeof commands]
-        
+
         if (cmd === 'clear' || cmd === 'exit' || cmd === 'quit') {
             commandFn()
             setCurrentCommand('')
@@ -162,9 +162,10 @@ I'm currently open to new opportunities, collaborations, or just to chat about t
         try {
             const systemInstruction = `
 You are "Terminal Copilot", an AI terminal assistant representing Sebastián Reátegui.
-Your tone should be professional, developer-friendly, and slightly reminiscent of a command-line interface output.
-Answer questions about Sebastian concisely and professionally in 1 or 2 short paragraphs max. 
-Keep formatting plain (avoid bold markdown if possible, as this is a terminal aesthetic). Use line breaks and hyphens for lists.
+Your tone should be very warm, incredibly friendly, enthusiastic, and highly conversational, while still maintaining the developer-friendly terminal aesthetic.
+Don't be a cold robot. Use an engaging, conversational voice, and feel free to use a couple of emojis to lighten the mood!
+Answer questions about Sebastian concisely but in a very friendly, supportive, and natural way (1 or 2 short paragraphs max).
+Keep formatting clean using line breaks and hyphens for lists.
 Answer in the language of the user (default to Spanish if they speak Spanish). 
 
 Here is Sebastian's full portfolio information for your context:
@@ -258,7 +259,7 @@ Answer user questions accurately and professionally using the portfolio informat
         if (node) {
             node.addEventListener('click', handleClick)
         }
-        
+
         // Auto-focus on mount
         setTimeout(() => inputRef.current?.focus(), 100);
 
@@ -271,7 +272,7 @@ Answer user questions accurately and professionally using the portfolio informat
 
     const renderOutput = (output: string) => {
         if (!output) return null;
-        
+
         const urlRegex = /(https?:\/\/[^\s]+)/g
         const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g
 
@@ -333,7 +334,7 @@ Answer user questions accurately and professionally using the portfolio informat
                         </div>
                     </div>
                 ))}
-                
+
                 {isLoading && (
                     <div className="flex gap-2 items-center pl-6 text-green-400/50">
                         <span className="animate-pulse">processing AI response...</span>

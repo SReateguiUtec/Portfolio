@@ -241,6 +241,10 @@ const LOCAL_QA = [
     {
         keywords: ['hola', 'quien eres', 'presentate', 'saludo', 'presentacion', 'hello', 'whoami', 'hi'],
         answer: "¡Hola! Qué gusto saludarte. 😊 Soy **SR Copilot**, el asistente virtual de Sebastián. Estoy aquí para contarte todo lo que quieras saber sobre él: sus estudios en UTEC, sus proyectos de desarrollo favoritos, sus habilidades y cómo puedes ponerte en contacto con él. ¿Sobre qué te gustaría charlar hoy?"
+    },
+    {
+        keywords: ['idiomas', 'idioma', 'languages', 'language', 'hablas', 'ingles', 'español', 'english', 'spanish'],
+        answer: "Sebastián habla **Español (Nativo)** e **Inglés 🇺🇸 (Nivel avanzado C1)**."
     }
 ];
 
@@ -414,6 +418,7 @@ CRITICAL INSTRUCTIONS:
 Here is Sebastian's full portfolio information for your context:
 - BIO: ${language === "es" ? FULL_STACK_BIO.es : FULL_STACK_BIO.en}
 - PERSONAL INFO & HOBBIES: ${language === "es" ? PERSONAL_EXTRA.es : PERSONAL_EXTRA.en}
+- LANGUAGES: ${language === "es" ? "Español (Nativo) e Inglés 🇺🇸 (C1 avanzado)" : "Spanish (Native) and English 🇺🇸 (Advanced C1)"}
 - SKILLS: ${language === "es" ? SKILLS_CONTENT.es : SKILLS_CONTENT.en}
 - PROJECTS: ${PROJECTS_DATA.map((p) => language === "es" ? p.content.es : p.content.en).join('\n\n')}
 - CONTACT: Email: ${CONTACT_INFO.email}, GitHub: ${CONTACT_INFO.github}, Status: ${language === "es" ? CONTACT_INFO.status.es : CONTACT_INFO.status.en}

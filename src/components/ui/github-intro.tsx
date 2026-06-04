@@ -96,15 +96,6 @@ export default function GithubIntro() {
                             {t.intro.hi}
                         </h2>
 
-                        <div className="flex items-center gap-2 text-[10px] font-mono -mt-1 mb-3">
-                            <span className="px-2 py-0.5 rounded border border-white/10 bg-white/5 text-gray-400 flex items-center gap-1.5">
-                                <span>🌐</span>
-                                <span>ES (Native)</span>
-                                <span className="text-gray-600">·</span>
-                                <span>EN (C1)</span>
-                            </span>
-                        </div>
-
                         <p className="text-gray-400 border-l-2 border-[#3b82f6] pl-4 italic leading-relaxed">
                             {t.intro.bio}
                         </p>

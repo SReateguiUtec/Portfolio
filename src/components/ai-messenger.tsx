@@ -176,6 +176,7 @@ CRITICAL INSTRUCTIONS:
 Here is Sebastian's full portfolio information for your context:
 - BIO: ${language === "es" ? FULL_STACK_BIO.es : FULL_STACK_BIO.en}
 - PERSONAL INFO & HOBBIES: ${language === "es" ? PERSONAL_EXTRA.es : PERSONAL_EXTRA.en}
+- LANGUAGES: ${language === "es" ? "Español (Nativo) e Inglés 🇺🇸 (C1 avanzado)" : "Spanish (Native) and English 🇺🇸 (Advanced C1)"}
 - SKILLS: ${language === "es" ? SKILLS_CONTENT.es : SKILLS_CONTENT.en}
 - PROJECTS: ${PROJECTS_DATA.map((p) => language === "es" ? p.content.es : p.content.en).join('\n\n')}
 - CONTACT: Email: ${CONTACT_INFO.email}, GitHub: ${CONTACT_INFO.github}, Status: ${language === "es" ? CONTACT_INFO.status.es : CONTACT_INFO.status.en}

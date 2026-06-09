@@ -110,7 +110,7 @@ export const translations = {
     agentic: {
       title: "Agentic Development Workflow",
       subtitle: "10x PRODUCTIVITY MULTIPLIER",
-      desc: "Prototyping and scaling complex systems through parallel agent orchestration, MCP Servers, and custom Skills.",
+      desc: "Prototyping and scaling through parallel agent orchestration, MCP Servers, and custom Skills.",
       bullet1: "AI-Pair Programming",
       bullet2: "Automated Code Generation",
       bullet3: "Rapid Prototyping & CI/CD"
@@ -227,7 +227,7 @@ export const translations = {
     agentic: {
       title: "Agentic Development Workflow",
       subtitle: "MULTIPLICADOR DE PRODUCTIVIDAD 10X",
-      desc: "Prototipando y escalando sistemas complejos mediante orquestación de agentes en paralelo, MCP Servers y Skills personalizados.",
+      desc: "Prototipando y escalando mediante orquestación de agentes en paralelo, MCP Servers y Skills personalizados.",
       bullet1: "Programación en Pareja con IA",
       bullet2: "Generación de Código Automatizada",
       bullet3: "Prototipado Rápido y CI/CD"

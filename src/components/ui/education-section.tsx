@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Award } from 'lucide-react';
 import { GraduationCapIcon } from '../grad-cap';
@@ -12,6 +12,14 @@ export default function EducationSection() {
     const { language } = useLanguage();
     const t = translations[language];
     const [cameraView, setCameraView] = useState(1);
+
+    // Automatically transition camera view in sync with the 3s CSS glitch animation cycle
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCameraView(prev => prev === 1 ? 2 : 1);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, [cameraView]);
 
     const currentAscii = cameraView === 1 ? UTEC : UTEC2;
     const currentImage = cameraView === 1 ? "/utec3.png" : "/utec4.png";

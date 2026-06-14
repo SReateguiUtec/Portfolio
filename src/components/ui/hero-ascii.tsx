@@ -20,6 +20,52 @@ export default function HeroAscii() {
         });
     };
 
+    // Typewriter effect state for terminal command & response
+    const [commandText, setCommandText] = useState('');
+    const [showResponse, setShowResponse] = useState(false);
+    const [roleDisplayText, setRoleDisplayText] = useState('');
+
+    useEffect(() => {
+        setCommandText('');
+        setShowResponse(false);
+        setRoleDisplayText('');
+
+        let cmdIndex = 0;
+        const targetCommand = "whoami";
+
+        const cmdInterval = setInterval(() => {
+            setCommandText(targetCommand.substring(0, cmdIndex + 1));
+            cmdIndex++;
+            if (cmdIndex >= targetCommand.length) {
+                clearInterval(cmdInterval);
+                setTimeout(() => {
+                    setShowResponse(true);
+                }, 300);
+            }
+        }, 80);
+
+        return () => {
+            clearInterval(cmdInterval);
+        };
+    }, [language]);
+
+    useEffect(() => {
+        if (!showResponse) return;
+
+        let roleIndex = 0;
+        const targetRole = t.hero.role;
+
+        const roleInterval = setInterval(() => {
+            setRoleDisplayText(targetRole.substring(0, roleIndex + 1));
+            roleIndex++;
+            if (roleIndex >= targetRole.length) {
+                clearInterval(roleInterval);
+            }
+        }, 55);
+
+        return () => clearInterval(roleInterval);
+    }, [showResponse, t.hero.role]);
+
     // Scanner Effect State
     const [tick, setTick] = useState(0);
     const asciiLines = LOGO.split('\n');
@@ -63,11 +109,11 @@ export default function HeroAscii() {
                         <div className="font-mono text-white text-xl lg:text-2xl font-bold tracking-widest italic transform -skew-x-12 group-hover:text-blue-400 transition-colors duration-300">
                             S.REATEGUI
                         </div>
-                        <div className="h-3 lg:h-4 w-px bg-white/40"></div>
-                        <span className="text-white/60 text-[8px] lg:text-[10px] font-mono tracking-widest">{t.hero.portfolio}</span>
+                        <div className="hidden sm:block lg:hidden xl:block h-3 lg:h-4 w-px bg-white/40"></div>
+                        <span className="hidden sm:inline lg:hidden xl:inline text-white/60 text-[8px] lg:text-[10px] font-mono tracking-widest">{t.hero.portfolio}</span>
                     </div>
 
-                    <nav className="hidden lg:flex items-center gap-8 text-[11px] tracking-wider font-mono text-white/70 uppercase">
+                    <nav className="hidden lg:flex items-center lg:gap-4 xl:gap-8 lg:text-[10px] xl:text-[11px] tracking-wider font-mono text-white/70 uppercase">
                         <a href="#about" className="hover:text-blue-400 transition-colors duration-200">{t.nav.about}</a>
                         <div className="w-1 h-1 bg-white/20 rounded-full"></div>
                         <a href="#projects" className="hover:text-blue-400 transition-colors duration-200">{t.nav.projects}</a>
@@ -192,7 +238,19 @@ export default function HeroAscii() {
                         {/* Description with subtle grid pattern */}
                         <div className="relative">
                             <p className="text-xs lg:text-base text-gray-200 mb-5 lg:mb-6 leading-relaxed font-mono opacity-100 max-w-md [text-shadow:_0_2px_4px_rgb(0_0_0_/_100%),_0_0_10px_rgb(0_0_0_/_100%)] lg:[text-shadow:_none]">
-                                <span className="text-white font-bold block mb-2">{t.hero.role}</span>
+                                <span className="text-white font-bold block mb-2">
+                                    <span className="text-blue-400">guest@sreategui:~$ </span>
+                                    <span>{commandText}</span>
+                                    {!showResponse && (
+                                        <span className="inline-block w-1.5 h-[1.1em] bg-blue-400 ml-1 animate-pulse align-middle -translate-y-px" />
+                                    )}
+                                    {showResponse && (
+                                        <span className="block mt-1.5 text-white">
+                                            {roleDisplayText}
+                                            <span className="inline-block w-1.5 h-[1.1em] bg-blue-400 ml-1 animate-pulse align-middle -translate-y-px" />
+                                        </span>
+                                    )}
+                                </span>
                                 {t.hero.description}
                             </p>
 

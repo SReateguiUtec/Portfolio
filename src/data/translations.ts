@@ -114,6 +114,11 @@ export const translations = {
       bullet1: "AI-Pair Programming",
       bullet2: "Automated Code Generation",
       bullet3: "Rapid Prototyping & CI/CD"
+    },
+    notFound: {
+      title: "404 - Page Not Found",
+      description: "Oops! The page you are looking for doesn't exist or has been moved.",
+      backHome: "Go Back Home"
     }
   },
   es: {
@@ -231,6 +236,11 @@ export const translations = {
       bullet1: "Programación en Pareja con IA",
       bullet2: "Generación de Código Automatizada",
       bullet3: "Prototipado Rápido y CI/CD"
+    },
+    notFound: {
+      title: "404 - Página no encontrada",
+      description: "¡Oops! La página que estás buscando no existe o ha sido movida.",
+      backHome: "Volver al Inicio"
     }
   }
 };

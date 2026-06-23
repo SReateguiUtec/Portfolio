@@ -285,7 +285,7 @@ export default function HeroAscii() {
                                 <button
                                     type="button"
                                     onClick={openCopilot}
-                                    className="relative col-span-2 flex min-h-11 items-center justify-center gap-2 px-4 py-2.5 lg:px-6 lg:py-3 bg-blue-500/20 text-white font-mono text-xs lg:text-sm border border-blue-400/70 hover:bg-blue-500/35 hover:border-blue-300 transition-all duration-200 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+                                    className="relative col-span-2 hidden sm:flex min-h-11 items-center justify-center gap-2 px-4 py-2.5 lg:px-6 lg:py-3 bg-blue-500/20 text-white font-mono text-xs lg:text-sm border border-blue-400/70 hover:bg-blue-500/35 hover:border-blue-300 transition-all duration-200 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
                                     aria-label={t.copilot.heroCta}
                                 >
                                     <span className="hidden lg:block absolute -top-1 -left-1 w-2 h-2 border-t border-l border-blue-400 opacity-0 group-hover:opacity-100 transition-opacity"></span>

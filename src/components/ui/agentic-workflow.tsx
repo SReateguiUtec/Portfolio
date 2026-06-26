@@ -12,7 +12,7 @@ export default function AgenticWorkflow() {
     return (
         <VortexPage>
             <div className="w-full max-w-4xl mx-auto px-6 py-4 md:py-12 flex flex-col items-center justify-center text-center">
-                <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 tracking-tight drop-shadow-lg text-center">
+                <h2 className="text-2xl md:text-4xl font-bold text-white mb-4 md:mb-6 tracking-tight drop-shadow-lg text-center">
                     {t.agentic.title}
                 </h2>
                 

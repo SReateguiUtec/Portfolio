@@ -8,36 +8,39 @@ import ContactSection from '../components/ui/contact-section';
 import LazyMorphPanel from '../components/ui/lazy-morph-panel';
 import Footer from '../components/ui/footer';
 import { ScrollReveal } from '../components/ui/scroll-reveal';
+import PageLoader from '../components/ui/page-loader';
 
 export default function Home() {
 
     return (
-        <div className="bg-black min-h-screen">
-            <TopBanner />
-            <HeroAscii />
-            <ScrollReveal>
-                <GithubIntro />
-            </ScrollReveal>
-            <ScrollReveal>
-                <ProjectsSection />
-            </ScrollReveal>
-            <ScrollReveal>
-                <EducationSection />
-            </ScrollReveal>
+        <PageLoader>
+            <div className="bg-black min-h-screen">
+                <TopBanner />
+                <HeroAscii />
+                <ScrollReveal>
+                    <GithubIntro />
+                </ScrollReveal>
+                <ScrollReveal>
+                    <ProjectsSection />
+                </ScrollReveal>
+                <ScrollReveal>
+                    <EducationSection />
+                </ScrollReveal>
 
-            <ScrollReveal id="Skills">
-                <LogoCloudMarquee />
-            </ScrollReveal>
+                <ScrollReveal id="Skills">
+                    <LogoCloudMarquee />
+                </ScrollReveal>
 
-            <ScrollReveal>
-                <ContactSection />
-            </ScrollReveal>
-            <ScrollReveal>
-                <Footer />
-            </ScrollReveal>
+                <ScrollReveal>
+                    <ContactSection />
+                </ScrollReveal>
+                <ScrollReveal>
+                    <Footer />
+                </ScrollReveal>
 
-            {/* Floating AI Input */}
-            <LazyMorphPanel />
-        </div>
+                {/* Floating AI Input */}
+                <LazyMorphPanel />
+            </div>
+        </PageLoader>
     );
 }

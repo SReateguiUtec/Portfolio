@@ -13,34 +13,37 @@ import PageLoader from '../components/ui/page-loader';
 export default function Home() {
 
     return (
-        <PageLoader>
-            <div className="bg-black min-h-screen">
-                <TopBanner />
-                <HeroAscii />
-                <ScrollReveal>
-                    <GithubIntro />
-                </ScrollReveal>
-                <ScrollReveal>
-                    <ProjectsSection />
-                </ScrollReveal>
-                <ScrollReveal>
-                    <EducationSection />
-                </ScrollReveal>
+        <>
+            <PageLoader>
+                <div className="bg-black min-h-screen">
+                    <TopBanner />
+                    <HeroAscii />
+                    <ScrollReveal>
+                        <GithubIntro />
+                    </ScrollReveal>
+                    <ScrollReveal>
+                        <ProjectsSection />
+                    </ScrollReveal>
+                    <ScrollReveal>
+                        <EducationSection />
+                    </ScrollReveal>
 
-                <ScrollReveal id="Skills">
-                    <LogoCloudMarquee />
-                </ScrollReveal>
+                    <ScrollReveal id="Skills">
+                        <LogoCloudMarquee />
+                    </ScrollReveal>
 
-                <ScrollReveal>
-                    <ContactSection />
-                </ScrollReveal>
-                <ScrollReveal>
-                    <Footer />
-                </ScrollReveal>
+                    <ScrollReveal>
+                        <ContactSection />
+                    </ScrollReveal>
+                    <ScrollReveal>
+                        <Footer />
+                    </ScrollReveal>
+                </div>
+            </PageLoader>
 
-                {/* Floating AI Input */}
-                <LazyMorphPanel />
-            </div>
-        </PageLoader>
+            {/* Floating AI Input — outside PageLoader so its fixed positioning
+                is relative to the viewport, not the animated motion.div wrapper */}
+            <LazyMorphPanel />
+        </>
     );
 }

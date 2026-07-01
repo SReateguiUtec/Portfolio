@@ -55,7 +55,10 @@ export default function PageLoader({ children }: { children: React.ReactNode }) 
     }, [prefersReducedMotion, beginReveal]);
 
     useEffect(() => {
-        if (phase === "revealed") return;
+        if (phase === "revealed") {
+            window.dispatchEvent(new CustomEvent("portfolio:loader-done"));
+            return;
+        }
 
         const previousOverflow = document.documentElement.style.overflow;
         document.documentElement.style.overflow = "hidden";

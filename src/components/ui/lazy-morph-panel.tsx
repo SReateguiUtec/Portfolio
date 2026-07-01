@@ -9,10 +9,22 @@ const MorphPanel = dynamic(() => import('./ai-input'), {
 });
 
 export default function LazyMorphPanel() {
+    // Only mount after the page loader signals it's done, so the dock
+    // doesn't appear on top of the loader screen.
+    const [loaderDone, setLoaderDone] = useState(false);
     const [shouldLoad, setShouldLoad] = useState(false);
     const [openOnMount, setOpenOnMount] = useState(false);
 
+    // Wait for the loader to finish before doing anything
     useEffect(() => {
+        const onDone = () => setLoaderDone(true);
+        window.addEventListener('portfolio:loader-done', onDone, { once: true });
+        return () => window.removeEventListener('portfolio:loader-done', onDone);
+    }, []);
+
+    useEffect(() => {
+        if (!loaderDone) return;
+
         const load = () => setShouldLoad(true);
 
         const onOpen = (event: Event) => {
@@ -37,9 +49,9 @@ export default function LazyMorphPanel() {
         let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
         if ('requestIdleCallback' in window) {
-            idleId = window.requestIdleCallback(load, { timeout: 1500 });
+            idleId = window.requestIdleCallback(load, { timeout: 800 });
         } else {
-            timeoutId = setTimeout(load, 1200);
+            timeoutId = setTimeout(load, 600);
         }
 
         return () => {
@@ -48,9 +60,9 @@ export default function LazyMorphPanel() {
             if (idleId !== undefined) window.cancelIdleCallback(idleId);
             if (timeoutId) clearTimeout(timeoutId);
         };
-    }, []);
+    }, [loaderDone]);
 
-    if (!shouldLoad) return null;
+    if (!loaderDone || !shouldLoad) return null;
 
     return <MorphPanel openOnMount={openOnMount} />;
 }
